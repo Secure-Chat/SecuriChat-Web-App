@@ -1,13 +1,10 @@
-import React from 'react';
-
-const Footer = () => {
+export default function Footer() {
     return (
         <footer className="footer nav-bg--color">
             <div className="container text-center">
-                <span className="text-muted">@2021 SecuriChat</span>
+                {/* We should add an about page link here */}
+                <span className="text-muted">©2022 SecuriChat</span>
             </div>
         </footer>
     )
 }
-
-export default Footer;
