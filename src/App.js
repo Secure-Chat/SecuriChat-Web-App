@@ -1,15 +1,10 @@
-<<<<<<< HEAD
-// Imports
-import React, { useEffect, useState } from 'react';
-=======
-
 // Imports
 import React, {useEffect, useState} from 'react';
 import {BrowserRouter as Router, Navigate, Routes, Route, BrowserRouter} from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import setAuthToken from './utils/setAuthToken';
 import axios from 'axios';
->>>>>>> f3080bb10aa7d8013642a1f7b2a3cf58702ae2b0
+
 import './App.css';
 import LoginButton from './components/login/LoginButton';
 
@@ -35,7 +30,7 @@ export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(true);
 
   useEffect(() => {
-    let token;
+    const token;
     // If false: there is no token inside localStorage, then the user is not authenticated
     if (!localStorage.getItem('jwtToken')) {
       setIsAuthenticated(false);
@@ -64,6 +59,7 @@ export default function App() {
     <BrowserRouter>
       <div className='App'>
         <Navbar isAuth={isAuthenticated} handleLogout={handleLogout} />
+        {/* I thought we were making the login page the main page... We could do that and have an option for creating an account underneath// I was also thinking that we were making a menu in the header that would have settings and sign out in it */}
         <LoginButton isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
         <div className='app-display'>
           <Routes>
