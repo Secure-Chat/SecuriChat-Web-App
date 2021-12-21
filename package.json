@@ -38,5 +38,18 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "description": "## Problem Domain",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Secure-Chat/securichat-web-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Secure-Chat/securichat-web-app/issues"
+  },
+  "homepage": "https://github.com/Secure-Chat/securichat-web-app#readme"
 }

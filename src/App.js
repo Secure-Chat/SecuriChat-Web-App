@@ -1,3 +1,4 @@
+
 // Imports
 import React, {useEffect, useState} from 'react';
 import {BrowserRouter as Router, Navigate, Routes, Route, BrowserRouter} from 'react-router-dom';
@@ -5,6 +6,7 @@ import jwt_decode from 'jwt-decode';
 import setAuthToken from './utils/setAuthToken';
 import axios from 'axios';
 import './App.css';
+import LoginButton from './components/login/LoginButton';
 
 // Components
 import Navbar from './components/navbar/Navbar';
@@ -18,6 +20,7 @@ axios.defaults.xsrfCookieName = 'csrftoken'
 axios.defaults.xsrfHeaderName = 'X-CSRFToken'
 
 export default function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState('');
   const [isAuthenticated, setIsAuthenticated] = useState(true);
 
@@ -51,6 +54,7 @@ export default function App() {
     <BrowserRouter>
       <div className='App'>
         <Navbar isAuth={isAuthenticated} handleLogout={handleLogout} />
+        <LoginButton isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
         <div className='app-display'>
           <Routes>
             <Route path='/' element={<Login user={currentUser} nowCurrentUser={nowCurrentUser} setIsAuthenticated={setIsAuthenticated} />} />
