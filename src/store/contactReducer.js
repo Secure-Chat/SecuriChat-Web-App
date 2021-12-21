@@ -1,8 +1,11 @@
-
+const initialState = {
+  contacts = [],
+}
 
 export default function contactReducer(state = initialState, action) {
   switch (action.type) {
     case 'GET-CONTACTS': {
+      return state;
     }
     
     default:

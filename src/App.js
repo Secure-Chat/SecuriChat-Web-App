@@ -21,7 +21,6 @@ axios.defaults.xsrfHeaderName = 'X-CSRFToken'
 
 // Components
 import Login from './components/login/Login';
-import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
 
 export default function App() {
