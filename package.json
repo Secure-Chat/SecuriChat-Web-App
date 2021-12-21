@@ -8,22 +8,21 @@
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.24.0",
+    "base-64": "^1.0.0",
     "dotenv": "^10.0.0",
     "jwt-decode": "^3.1.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-<<<<<<< HEAD
+    "react-dotenv": "^0.1.3",
     "react-redux": "^7.2.6",
-=======
     "react-router-dom": "^6.2.1",
->>>>>>> f3080bb10aa7d8013642a1f7b2a3cf58702ae2b0
     "react-scripts": "5.0.0",
     "redux": "^4.1.2",
     "web-vitals": "^2.1.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "react-dotenv && react-scripts start",
+    "build": "react-dotenv && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -39,6 +38,9 @@
       "not dead",
       "not op_mini all"
     ],
+    "react-dotenv": {
+      "whitelist": ["API_URL"]
+    },
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
