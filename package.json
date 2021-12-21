@@ -7,9 +7,16 @@
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
+    "axios": "^0.24.0",
+    "dotenv": "^10.0.0",
+    "jwt-decode": "^3.1.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+<<<<<<< HEAD
     "react-redux": "^7.2.6",
+=======
+    "react-router-dom": "^6.2.1",
+>>>>>>> f3080bb10aa7d8013642a1f7b2a3cf58702ae2b0
     "react-scripts": "5.0.0",
     "redux": "^4.1.2",
     "web-vitals": "^2.1.2"
@@ -37,5 +44,18 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "description": "## Problem Domain",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Secure-Chat/securichat-web-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Secure-Chat/securichat-web-app/issues"
+  },
+  "homepage": "https://github.com/Secure-Chat/securichat-web-app#readme"
 }

@@ -1,38 +1,99 @@
-.App {
-  text-align: center;
+/*
+=============== 
+Variables
+===============
+*/
+
+/* :root {
+
+} */
+
+html {
+	position: relative;
+	min-height: 100%;
+	width: auto;
+	height: auto;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+	margin-bottom: 60px; /* Margin bottom by footer height */
+	width: auto;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+.footer {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height: 35px; /* Set the fixed height of the footer here */
+	line-height: 35px; /* Vertically center the text there */
+}
+
+.nav-link{
+	color:white !important;
+}
+
+.nav-bg{
+	background-color: rgba(0,0,0,.5) !important;
+}
+
+.app-display {
+	padding: 0 45px;
+	margin: 48px 0 0 0;
+}
+
+.nav-link--textcolor{
+	color:white !important;
+}
+
+.nav-bg--color{
+	background-color: rgba(0,0,0,.5) !important;
+}
+
+li{
+	list-style-type: none;
+}
+
+.teamContainer {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+}
+.teamContainer p {
+	font-weight: bold;
+	color: hsl(209, 61%, 16%);
+}
+.teamContainer a {
+	color: hsl(209, 34%, 30%);
+}
+.teamCard {
+	border: solid #343a40 2px;
+	border-radius: 30px;
+	border-bottom-right-radius: 100px;
+	border-bottom-left-radius: 100px;
+	padding: 10px 0 0 0;
+	margin: 1em;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: auto;
+	width: auto;
+}
+.teamCard img {
+	height: 200px;
+	width: 200px;
+	border-radius: 100px;
+	margin-bottom: -1px;
+}
+
+@media screen and (max-width: 576px) {
+  .teamContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
   }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+  .teamCard {
+    width: 200px;
   }
 }
