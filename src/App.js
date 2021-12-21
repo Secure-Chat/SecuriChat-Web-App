@@ -19,18 +19,13 @@ import Login from './components/login/Login';
 axios.defaults.xsrfCookieName = 'csrftoken'
 axios.defaults.xsrfHeaderName = 'X-CSRFToken'
 
-// Components
-import Login from './components/login/Login';
-import Header from './components/header/Header';
-import Footer from './components/footer/Footer';
-
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState('');
   const [isAuthenticated, setIsAuthenticated] = useState(true);
 
   useEffect(() => {
-    const token;
+    let token;
     // If false: there is no token inside localStorage, then the user is not authenticated
     if (!localStorage.getItem('jwtToken')) {
       setIsAuthenticated(false);

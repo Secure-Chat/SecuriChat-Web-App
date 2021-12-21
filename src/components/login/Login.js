@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import LoginButton from './LoginButton';
-// const REACT_APP_SERVER_URL = process.env.REACT_APP_SERVER_URL;
+const REACT_APP_SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 const loginUser = async credentials => {
   // return fetch('http://localhost:3000', {
