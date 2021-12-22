@@ -4,6 +4,7 @@ import {BrowserRouter as Router, Navigate, Routes, Route, BrowserRouter} from 'r
 import jwt_decode from 'jwt-decode';
 import setAuthToken from './utils/setAuthToken';
 import axios from 'axios';
+import { connect } from 'react-redux';
 
 import './App.css';
 
@@ -14,58 +15,82 @@ import About from './components/about/About';
 import Footer from './components/footer/Footer';
 import Settings from './components/settings/Settings';
 import Login from './components/login/Login';
+import Socket from './components/socket/Socket';
+import Contacts from './components/contacts/Contacts';
 
 axios.defaults.xsrfCookieName = 'csrftoken'
 axios.defaults.xsrfHeaderName = 'X-CSRFToken'
 
-export default function App() {
+function App(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [currentUser, setCurrentUser] = useState('');
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
 
   useEffect(() => {
-    let token;
-    // If false: there is no token inside localStorage, then the user is not authenticated
-    if (!localStorage.getItem('jwtToken')) {
-      setIsAuthenticated(false);
-    } else {
-      token = jwt_decode(localStorage.getItem('jwtToken'));
-      // console.log('Token', token);
-      setAuthToken(token);
-      setCurrentUser(token);
-    }
-  }, []);
+    if(props.user.user) setIsLoggedIn(true);
+    else setIsLoggedIn(false);
+  }, [props.user.user])
 
-  const nowCurrentUser = userData => {
-    setCurrentUser(userData);
-    setIsAuthenticated(true); 
-  };
-
-  const handleLogout = () => {
-    if (localStorage.getItem('jwtToken')) {
-      localStorage.removeItem('jwtToken');    // If there is a token, then remove it
-      setCurrentUser(null);                   // Set the currentUser to null
-      setIsAuthenticated(false)               // Set is auth to false
-    }
-  };
-
+  if (!isLoggedIn) {
+    return (
+      <>
+        <h1>test header in app</h1>
+        <BrowserRouter>
+          <div className='App'>
+            <Navbar />
+            <div className='app-display'>
+              <Routes>
+                <Route path='/' element={<Login />} />
+                <Route path='signup/*' element={<Signup />} />
+                <Route path='about/*' element={<About />} />
+              </Routes>
+            </div>
+            <Footer />
+          </div>
+        </BrowserRouter>
+      </>
+    )
+  }
   return (
     <>
-    <h1>test header in app</h1>
-    <BrowserRouter>
-      <div className='App'>
-        <Navbar isAuth={isAuthenticated} handleLogout={handleLogout} />
-        <div className='app-display'>
-          <Routes>
-            <Route path='/' element={<Login user={currentUser} nowCurrentUser={nowCurrentUser} setIsAuthenticated={setIsAuthenticated} />} />
-            <Route path='signup/*' element={<Signup nowCurrentUser={nowCurrentUser} />} />
-            <Route path='about/*' element={<About />} />
-            <Route path='settings/*' element={<Settings user={currentUser}/>}  />
-          </Routes>
+      <Socket />
+      <h1>test header in app</h1>
+      <BrowserRouter>
+        <div className='App'>
+          <Navbar />
+          <div className='app-display'>
+            <Routes>
+              <Route path='/' element={<Contacts />} /> 
+              <Route path='about/*' element={<About />} />
+              <Route path='settings/*' element={<Settings />}  />
+              <Route path='contacts/*' element={<Contacts />}  />
+            </Routes>
+          </div>
+          <Footer />
         </div>
-        <Footer />
-      </div>
-    </BrowserRouter>
+      </BrowserRouter>
     </>
   )
 }
+
+const mapStateToProps = state => {
+  return {
+    socket: state.socket,
+  }
+}
+
+export default connect(mapStateToProps)(App);
+
+
+// // Imports
+// import React from 'react';
+
+// import './App.css';
+
+// export default function App() {
+
+//   return (
+//     <>
+// <p>hi</p>
+//     </>
+//   )
+// }
+
