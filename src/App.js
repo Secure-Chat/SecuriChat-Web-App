@@ -51,7 +51,6 @@ export default function App() {
 
   return (
     <>
-    <h1>test header in app</h1>
     <BrowserRouter>
       <div className='App'>
         <Navbar isAuth={isAuthenticated} handleLogout={handleLogout} />
