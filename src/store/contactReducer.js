@@ -27,7 +27,7 @@ function contactReducer(state = initialState, action) {
   let { contactList } = state;
 
   switch (type) {
-    case 'GET_CONTACTS': 
+    case 'GET_CONTACTS':
       return contactList;
     case 'ADD_CONTACT':
       const { username, global, room } = payload
@@ -37,35 +37,46 @@ function contactReducer(state = initialState, action) {
           messages: []
         };
       }
-      return {contactList};
-    default:
-      return state;
+      return { contactList };
+      const initialState = {
+        contacts =[],
+      }
   }
-}
 
-export const fetchContacts = (payload) => async (dispatch) => {
-  const { username, password } = payload;
-  const loginString = `${username}:${password}`;
-  axios.post(`${REACT_APP_DATABASE_URL}/signin`, {}, {
-    headers: {
-      'Authorization': `Basic ${base64.encode(loginString)}`
+  export default function contactReducer(state = initialState, action) {
+    switch (action.type) {
+      case 'GET-CONTACTS': {
+        return state;
+      }
+      default:
+        return state;
     }
-  })
-  const localContacts = 
+  }
+
+  export const fetchContacts = (payload) => async (dispatch) => {
+    const { username, password } = payload;
+    const loginString = `${username}:${password}`;
+    axios.post(`${REACT_APP_DATABASE_URL}/signin`, {}, {
+      headers: {
+        'Authorization': `Basic ${base64.encode(loginString)}`
+      }
+    })
+    const localContacts = 
 
 
 }
 
-export const addContact = (name) => async (dispatch) => {
-  const response = await axios.post(`${REACT_APP_DATABASE_URL}/contacts`, {
-    name,
-    UUID: uuid()
-  });
-  const data = response.data;
-  dispatch({
-    type: 'ADD_CONTACT',
-    payload: data,
-  });
+  export const addContact = (name) => async (dispatch) => {
+    const response = await axios.post(`${REACT_APP_DATABASE_URL}/contacts`, {
+      name,
+      UUID: uuid()
+    });
+    const data = response.data;
+    dispatch({
+      type: 'ADD_CONTACT',
+      payload: data,
+    });
+  }
 }
 
 export default contactReducer;

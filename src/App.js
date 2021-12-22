@@ -6,7 +6,6 @@ import setAuthToken from './utils/setAuthToken';
 import axios from 'axios';
 
 import './App.css';
-import LoginButton from './components/login/LoginButton';
 
 // Components
 import Navbar from './components/navbar/Navbar';
@@ -51,11 +50,11 @@ export default function App() {
   };
 
   return (
+    <>
+    <h1>test header in app</h1>
     <BrowserRouter>
       <div className='App'>
         <Navbar isAuth={isAuthenticated} handleLogout={handleLogout} />
-        {/* I thought we were making the login page the main page... We could do that and have an option for creating an account underneath// I was also thinking that we were making a menu in the header that would have settings and sign out in it */}
-        <LoginButton isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
         <div className='app-display'>
           <Routes>
             <Route path='/' element={<Login user={currentUser} nowCurrentUser={nowCurrentUser} setIsAuthenticated={setIsAuthenticated} />} />
@@ -67,5 +66,6 @@ export default function App() {
         <Footer />
       </div>
     </BrowserRouter>
+    </>
   )
 }

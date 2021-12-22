@@ -1,51 +1,53 @@
+// Imports
 import React from 'react';
-import { useState } from 'react';
-import LoginButton from './LoginButton';
-const REACT_APP_SERVER_URL = process.env.REACT_APP_SERVER_URL;
+import { connect } from 'react-redux';
+import axios from 'axios';
+import base64 from 'base-64';
 
-const loginUser = async credentials => {
-  // return fetch('http://localhost:3000', {
-  return fetch(`${REACT_APP_SERVER_URL}/signin/`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(credentials)
-  })
-  .then(data => data.json())
-}
+// Components
 
-const Login = props => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  // const [isLoggedIn, setIsLoggedIn] = useState(false);
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+  };
+};
 
-  const handleLoginUser = async e => {
+const mapDispatchToProps = (dispatch) => ({
+  signin: (response) => dispatch({ type: 'SIGN-IN', payload: response }),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(function Login(props) {
+  const REACT_APP_DATABASE_URL = process.env.REACT_APP_DATABASE_URL;
+
+  const loginHandler = (e) => {
     e.preventDefault();
-    const token = await loginUser({
-      username,
-      password,
-    });
-    //token?
-  }
+    axios.post(`${REACT_APP_DATABASE_URL}/signin`, {}, {
+      headers: {
+        'Authorization': `Basic ${base64.encode(`${e.target.username.value}:${e.target.password.value}`)}`,
+      }
+    })
+    .then(response => {
+      props.signin(response);
+      props.connect();
+      
+      // Needs socket connection and rooms... possibly in reducers but connected after this passes
+    })
+    .catch(error => console.log(error.message));
+  };
 
-    return (
-      <>
-      <h1>Securichat</h1>
-      <p>Login</p>
-      <form onSubmit={handleLoginUser}>
+  return (
+    <>
+      <form onSubmit={loginHandler}>
         <label>
           <p>Username</p>
-          <input type = "username" onChange={e => setUsername(e.target.value)}/>
+          <input type = "username" />
         </label>
         <label>
           <p>Password</p>
-          <input type ="password" onChange={e => setPassword(e.target.value)}/>
+          <input type ="password" />
         </label>
-      <LoginButton/> 
+        <button type='submit'>Log In</button>
       </form>
-      </>
-    )
-  }
-
-export default Login;
+    </>
+  );
+});

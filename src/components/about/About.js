@@ -25,8 +25,8 @@ const About = () => {
                 </div>
                 <div className="teamCard">
                         <p className="teamTitle">Antoine Charette</p>
-                        <a href="">LinkedIn</a>
-                        <img src="" alt="profile picture" />
+                        <a href="https://www.linkedin.com/in/antoinecharette/">LinkedIn</a>
+                        <img src="../../image/antoine.jpeg" alt="profile picture" />
                 </div>
                 <div className="teamCard">
                         <p className="teamTitle">George Mead</p>

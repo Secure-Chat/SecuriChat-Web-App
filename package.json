@@ -21,8 +21,8 @@
     "web-vitals": "^2.1.2"
   },
   "scripts": {
-    "start": "react-dotenv && react-scripts start",
-    "build": "react-dotenv && react-scripts build",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -45,7 +45,7 @@
     ]
   },
   "description": "## Problem Domain",
-  "main": "index.js",
+  "main": "src/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Secure-Chat/securichat-web-app.git"
