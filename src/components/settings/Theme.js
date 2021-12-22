@@ -1,20 +1,20 @@
 import React, {useState} from 'react';
-import { ThemeProvider } from '@mui/styles';
+import { ThemeProvider } from '@mui/material/styles';
 import { createTheme } from '@mui/material/styles';
 import { Switch } from '@mui/material';
 
-const Theme = () => {
+const Theme = props => {
 
   const [darkMode, setDarkMode] = useState(false);
 
-  const theme = createTheme({
+  const changeTheme = createTheme({
     palette: {
-      type: darkMode ? 'dark' : 'light',
+      mode: darkMode ? 'dark' : 'light',
     },
   })
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={changeTheme}>
       <Switch checked={darkMode} onChange={() => setDarkMode(!darkMode)}/>
     </ThemeProvider>
   )

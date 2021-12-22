@@ -21,7 +21,7 @@ let initialState = {
 //   },
 // }
 
-function contactReducer(state = initialState, action) {
+export default function contactReducer(state = initialState, action) {
 
   let { type, payload } = action;
   let { contactList } = state;
@@ -39,20 +39,20 @@ function contactReducer(state = initialState, action) {
       }
       return { contactList };
       const initialState = {
-        contacts =[],
+        // contacts =[],
       }
   }
 
-  export default function contactReducer(state = initialState, action) {
-    switch (action.type) {
-      case 'GET-CONTACTS': {
-        return state;
-      }
-      default:
-        return state;
-    }
-  }
-
+  // export default function contactReducer(state = initialState, action) {
+  //   switch (action.type) {
+  //     case 'GET-CONTACTS': {
+  //       return state;
+  //     }
+  //     default:
+  //       return state;
+  //   }
+  // }
+  
   export const fetchContacts = (payload) => async (dispatch) => {
     const { username, password } = payload;
     const loginString = `${username}:${password}`;
