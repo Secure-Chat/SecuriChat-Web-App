@@ -6,7 +6,6 @@ import setAuthToken from './utils/setAuthToken';
 import axios from 'axios';
 
 import './App.css';
-import LoginButton from './components/login/LoginButton';
 
 // Components
 import Navbar from './components/navbar/Navbar';
@@ -19,17 +18,13 @@ import Login from './components/login/Login';
 axios.defaults.xsrfCookieName = 'csrftoken'
 axios.defaults.xsrfHeaderName = 'X-CSRFToken'
 
-// Components
-import Login from './components/login/Login';
-import Footer from './components/footer/Footer';
-
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState('');
   const [isAuthenticated, setIsAuthenticated] = useState(true);
 
   useEffect(() => {
-    const token;
+    let token;
     // If false: there is no token inside localStorage, then the user is not authenticated
     if (!localStorage.getItem('jwtToken')) {
       setIsAuthenticated(false);
@@ -55,11 +50,11 @@ export default function App() {
   };
 
   return (
+    <>
+    <h1>test header in app</h1>
     <BrowserRouter>
       <div className='App'>
         <Navbar isAuth={isAuthenticated} handleLogout={handleLogout} />
-        {/* I thought we were making the login page the main page... We could do that and have an option for creating an account underneath// I was also thinking that we were making a menu in the header that would have settings and sign out in it */}
-        <LoginButton isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
         <div className='app-display'>
           <Routes>
             <Route path='/' element={<Login user={currentUser} nowCurrentUser={nowCurrentUser} setIsAuthenticated={setIsAuthenticated} />} />
@@ -71,5 +66,6 @@ export default function App() {
         <Footer />
       </div>
     </BrowserRouter>
+    </>
   )
 }

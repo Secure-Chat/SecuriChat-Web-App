@@ -1,6 +1,8 @@
 // Imports
 import React from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios';
+import base64 from 'base-64';
 
 // Components
 
@@ -15,11 +17,11 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(function Login(props) {
-  const DB_SERVER_URL = process.env.DB_SERVER_URL;
+  const REACT_APP_DATABASE_URL = process.env.REACT_APP_DATABASE_URL;
 
   const loginHandler = (e) => {
     e.preventDefault();
-    axios.post(`${DB_SERVER_URL}/signin`, {}, {
+    axios.post(`${REACT_APP_DATABASE_URL}/signin`, {}, {
       headers: {
         'Authorization': `Basic ${base64.encode(`${e.target.username.value}:${e.target.password.value}`)}`,
       }
