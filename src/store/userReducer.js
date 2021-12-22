@@ -3,27 +3,31 @@ const initialState = {
 };
 
 export default function userReducer(state = initialState, action) {
-  switch (action.type) {
-    case 'SIGN-IN': {
-      const user = action.payload;
-      return {...state, user};
+
+  let { type, payload } = action;
+  let { user } = state;
+
+  switch (type) {
+    case 'SIGN_IN': {
+      user = payload;
+      return { user };
     }
-    case 'SIGN-OUT':
-      return {...state, user: null};
+    case 'SIGN_OUT':
+      return { user: {} };
     default:
       return state;
   }
 }
 
-export const signin = (user) => {
-  return {
-    type: 'SIGN-IN',
-    payload: user,
-  };
-};
+// export const signin = (user) => {
+//   return {
+//     type: 'SIGN_IN',
+//     payload: user,
+//   };
+// };
 
-export const signout = () => {
-  return {
-    type: 'SIGN_OUT',
-  };
-};
+// export const signout = () => {
+//   return {
+//     type: 'SIGN_OUT',
+//   };
+// };

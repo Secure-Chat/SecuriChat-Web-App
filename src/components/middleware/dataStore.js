@@ -4,15 +4,14 @@
 // console.log("Platform: ", PLATFORM);
 
 const fs = require('fs');
-const client = require('socket.io-client');
 
 // on authentication
 const getUserData = (user) => {
-  const { username, password } = user;
+  const { username, token } = user;
   let userData = {
     username,
     messageQueue: {},
-    messageHistory: [],
+    contactList: {},
   };
 
 
@@ -37,8 +36,13 @@ const getUserData = (user) => {
   }
 }
 
-const saveUserData = ( payload ) => {
-  const { username, password, parsedUserData } = payload;
+const saveUserData = ( props ) => {
+  const { username, token } = props.user.user;
+  const parsedUserData = {
+    username,
+    messageQueue: props.messageQueue.messageQueue,
+    contactList: props.contacts.contactList
+  }
   try {
     fs.writeFile(`userData-${username}.json`, JSON.stringify(parsedUserData), (err) => {
       if (err) throw err;
