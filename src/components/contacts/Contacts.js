@@ -1,5 +1,6 @@
 //imports
-import React from 'react';
+import { Card, CardContent, CardHeader } from '@mui/material';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
 //components
@@ -17,16 +18,19 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(function Contacts(props) {
-  const handleClick = (e) => {};
+  const [show, setShow] = useState(false);
 
   return (
     <>
       {props.contactlist.map((contact) => {
         return (
-          <div value={contact.messages} onClick={handleClick}>
-            <h1>{contact.username}</h1>
-            <p>{contact.messages[contact.messages.length - 1]}</p>
-          </div>
+          <>
+            <Card value={contact.messages} onClick={setShow(true)}>
+              <CardHeader>{contact.username}</CardHeader>
+              <CardContent>{contact.messages[contact.messages.length - 1]}</CardContent>
+            </Card>
+            <Chat messages={contact.messages} show={show} onClose={setShow} />
+          </>
         );
       })}
     </>

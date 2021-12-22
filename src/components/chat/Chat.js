@@ -1,4 +1,5 @@
 //imports
+import { Button, FormControl, Modal, TextField } from '@mui/material';
 import React from 'react';
 
 //components
@@ -11,15 +12,17 @@ export default function Chat(props) {
 
   return (
     <>
-      <div>
-        {props.messages.map((message) => (
-          <Message message={message} />
-        ))}
-      </div>
-      <form onSubmit={handleMessage}>
-        <textarea onChange={props.setMessage}></textarea>
-        <button type="submit">Send</button>
-      </form>
+      <Modal show={props.show} onClose={props.setShow(false)}>
+        <div>
+          {props.messages.map((message) => (
+            <Message message={message} />
+          ))}
+        </div>
+        <FormControl onSubmit={handleMessage}>
+          <TextField onChange={props.setMessage}></TextField>
+          <Button type="submit">Send</Button>
+        </FormControl>
+      </Modal>
     </>
   );
 }
