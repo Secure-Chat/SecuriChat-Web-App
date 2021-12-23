@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import base64 from 'base-64';
 import { getUserData } from '../middleware/dataStore';
+import { FormControl, Button, Grid, Input } from '@mui/material';
 
 // Components
 
@@ -58,18 +59,18 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Login(props
   };
 
   return (
-    <>
-      <form onSubmit={loginHandler}>
+    <Grid>
+      <FormControl onSubmit={loginHandler}>
         <label>
           <p>Username</p>
-          <input type = "username" />
+          <Input type="username"/>
         </label>
         <label>
           <p>Password</p>
-          <input type ="password" />
+          <Input type ="password"/>
         </label>
-        <button type='submit'>Log In</button>
-      </form>
-    </>
+        <Button size="small" variant="outlined" type='submit'>Log In</Button>
+      </FormControl>
+    </Grid>
   );
 });

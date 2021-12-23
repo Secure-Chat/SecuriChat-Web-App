@@ -97,3 +97,13 @@ li{
     width: 200px;
   }
 }
+
+.light {
+	font-family: 'Anton', sans-serif;
+	color: black;
+}
+
+.dark {
+	font-family: 'Anton', sans-serif;
+	color: salmon;     
+}
