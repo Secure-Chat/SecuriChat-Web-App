@@ -1,6 +1,6 @@
 // Imports
 import React, {useEffect, useState} from 'react';
-import {BrowserRouter as Routes, Route, BrowserRouter} from 'react-router-dom';
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import { connect } from 'react-redux';
 import { socket, SocketContext } from './context/socket';
 
@@ -28,8 +28,8 @@ function App(props) {
     return (
       <SocketContext.Provider value={socket}>
         <h1>test header in app</h1>
-        <BrowserRouter>
           <div className='App'>
+          <Router>
             <Navbar isLoggedIn={isLoggedIn}/>
             <div className='app-display'>
               <Routes>
@@ -48,8 +48,8 @@ function App(props) {
               </Routes>
             </div>
             <Footer />
+            </Router>
           </div>
-        </BrowserRouter>
       </SocketContext.Provider>
     )
 }
@@ -61,19 +61,3 @@ const mapStateToProps = state => {
 }
 
 export default connect(mapStateToProps)(App);
-
-
-// // Imports
-// import React from 'react';
-
-// import './App.css';
-
-// export default function App() {
-
-//   return (
-//     <>
-// <p>hi</p>
-//     </>
-//   )
-// }
-

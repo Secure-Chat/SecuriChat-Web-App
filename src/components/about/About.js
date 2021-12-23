@@ -33,7 +33,7 @@ const About = () => {
         </div>
         <div className="teamCard">
           <p className="teamTitle">George Mead</p>
-          <a href="">LinkedIn</a>
+          <a href="https://www.linkedin.com/in/george-mead/">LinkedIn</a>
           <img src="/img/SXT39492.jpeg" alt="profile" />
         </div>
       </div>
