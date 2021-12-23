@@ -29,12 +29,12 @@ const About = () => {
         <div className="teamCard">
           <p className="teamTitle">Antoine Charette</p>
           <a href="https://www.linkedin.com/in/antoinecharette/">LinkedIn</a>
-          <img src="./public/img/antoine.jpeg" alt="profile" />
+          <img src="/img/antoine.jpeg" alt="profile" />
         </div>
         <div className="teamCard">
           <p className="teamTitle">George Mead</p>
           <a href="">LinkedIn</a>
-          <img src="./public/img/SXT39492.jpeg" alt="profile" />
+          <img src="/img/SXT39492.jpeg" alt="profile" />
         </div>
       </div>
     </div>
