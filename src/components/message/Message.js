@@ -10,14 +10,14 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(function Message(props) {
+export default connect(mapStateToProps)(function Message(props) {
   return (
     <>
-      {props.message.username === props.user.username ? <p className='messageRight'>{props.message.text}</p> : <p className='messageLeft'>{props.message.text}</p>}
+      {props.message.username === props.user.username ? (
+        <p className="messageRight">{props.message.text}</p>
+      ) : (
+        <p className="messageLeft">{props.message.text}</p>
+      )}
     </>
   );
 });
