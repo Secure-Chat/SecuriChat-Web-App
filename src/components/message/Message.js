@@ -13,7 +13,7 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps)(function Message(props) {
   return (
     <>
-      {props.message.username === props.user.username ? (
+      {props.message.username === props.user.userInfo.username ? (
         <p className="messageRight">{props.message.text}</p>
       ) : (
         <p className="messageLeft">{props.message.text}</p>

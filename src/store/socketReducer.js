@@ -1,4 +1,5 @@
-'use strict';
+import { io } from "socket.io-client";
+const SOCKET_SERVER_URL = process.env.SOCKET_SERVER_URL;
 
 const initialState = {
   socket: null
@@ -8,11 +9,11 @@ export default function socketReducer(state = initialState, action) {
   
   let { type, payload } = action;
   let { socket } = state;
+  console.log(action)
 
   switch (type) {
     case 'CONNECT': {
-      const { client } = payload;
-      socket = client
+      socket = io(SOCKET_SERVER_URL);
 
       return { socket };
     }

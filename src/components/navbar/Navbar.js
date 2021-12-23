@@ -1,15 +1,17 @@
 import React from "react";
 import { NavLink, Link } from "react-router-dom";
+import Settings from '../settings/Theme';
 
 const Navbar = (props) => {
   return (
     <nav className="navbar nav-bg">
+      <Settings/>
       <div className="container"><Link to="/"><span className="h3">SecuriChat</span></Link>
           <ul className="navbar-nav mr-auto">
             <li className="nav-item"><NavLink className="nav-link"  to="/about">About</NavLink></li>
           </ul>
           {
-            props.isAuth ? // is the user logged in?
+            props.isLoggedIn ? // is the user logged in?
             <ul>
               <li className="nav-item"><NavLink className="nav-link"  to="/contacts">Contacts</NavLink></li>
               <li className="nav-item"><NavLink className="nav-link"  to="/settings">Settings</NavLink></li>
