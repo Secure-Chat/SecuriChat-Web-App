@@ -1,9 +1,11 @@
 import React from "react";
 import { NavLink, Link } from "react-router-dom";
+import Settings from '../settings/Theme';
 
 const Navbar = (props) => {
   return (
     <nav className="navbar nav-bg">
+      <Settings/>
       <div className="container"><Link to="/"><span className="h3">SecuriChat</span></Link>
           <ul className="navbar-nav mr-auto">
             <li className="nav-item"><NavLink className="nav-link"  to="/about">About</NavLink></li>
