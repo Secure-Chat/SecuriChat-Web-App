@@ -24,7 +24,7 @@ const Theme = props => {
         {darkMode ? <Brightness4Icon/> :  <Brightness5Icon/>}
       </IconButton> */}
       <Typography variant="h1" >
-        {darkMode ? <p class="dark">Dark</p> : <p class="light">Light</p>}
+        {darkMode ? <p className="dark">Dark</p> : <p className="light">Light</p>}
       </Typography>
       </Paper>
     </ThemeProvider>

@@ -2,8 +2,6 @@ import React, {useEffect} from 'react';
 import { connect } from 'react-redux';
 import { saveUserData } from '../middleware/dataStore';
 
-
-
 function Socket({connectUser, disconnectUser, sendMessage, message, messageReceipt, ...props}) {
 
   useEffect(() => {
