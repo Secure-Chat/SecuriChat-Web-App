@@ -1,3 +1,13 @@
+// messageQueue: {
+//   (roomId): [
+//     {
+//       message: 'a message',
+//       username: 'the sender',
+//       messageTime: 'returned from socket server'
+//     }
+//   ]
+// }
+
 const initialState = {
   messageQueue: {}
 }
@@ -12,17 +22,34 @@ function messageReducer(state = initialState, action) {
       messageQueue = payload;
       return { messageQueue };
     }
-    case 'SEND_MESSAGE': {
-      const { room, message } = payload;
+    case 'MESSAGE_READ': {
+      const { room, message, username, messageTime } = payload;
+      const messagePosition = messageQueue[room].indexOf({
+        message,
+        username,
+        messageTime
+      })
+      if (messagePosition > -1) messageQueue[room].slice(messagePosition, 1);
+      return { messageQueue }
+    }
+    case 'MESSAGE': {
+      const { room, message, username, messageTime } = payload;
       if(!(room in messageQueue)) messageQueue[room] = [];
-      messageQueue[room].push(message);
+      messageQueue[room].push({
+        message,
+        username,
+        messageTime
+      });
       return { messageQueue };
     }
     case 'RECEIVED': {
-      const { username } = payload;
-      const { room, message } = payload.message;
+      const { room, message, username, messageTime } = payload;
       if (username === message.username) {
-        const messagePosition = messageQueue[room].indexOf(message);
+        const messagePosition = messageQueue[room].indexOf({
+          message,
+          username,
+          messageTime
+        })
         if (messagePosition > -1) messageQueue[room].slice(messagePosition, 1);
       }
       return { messageQueue };

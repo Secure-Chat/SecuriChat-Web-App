@@ -9,7 +9,7 @@ const Navbar = (props) => {
             <li className="nav-item"><NavLink className="nav-link"  to="/about">About</NavLink></li>
           </ul>
           {
-            props.isAuth ? // is the user logged in?
+            props.isLoggedIn ? // is the user logged in?
             <ul>
               <li className="nav-item"><NavLink className="nav-link"  to="/contacts">Contacts</NavLink></li>
               <li className="nav-item"><NavLink className="nav-link"  to="/settings">Settings</NavLink></li>
