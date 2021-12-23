@@ -1,34 +1,25 @@
-'use strict';
-
 // const PLATFORM = process.platform;
 // console.log("Platform: ", PLATFORM);
 
-const fs = require('fs');
-
 // on authentication
-const getUserData = (user) => {
+export const getUserData = (user) => {
   const { username, token } = user;
   let userData = {
     username,
     messageQueue: {},
     contactList: {},
   };
-
+  const userFile = `userData-${username}`;
 
   try {
-    fs.readFile(`userData-${username}.json`, (err, data) => {
-      if(err) {
-        if (err.code === 'ENOENT') {
-          return userData;
-        }
-      }
-      let parsedUserData = JSON.parse(data);
+    if ( localStorage.hasOwnProperty(userFile) ) {
+      let parsedUserData = JSON.parse(localStorage.getItem(userFile));
       for (const key in userData) {
         if (key in parsedUserData) {
           userData[key] = parsedUserData[key];
         }
       }
-    });
+    }
 
     return userData;
   } catch (err) {
@@ -36,24 +27,18 @@ const getUserData = (user) => {
   }
 }
 
-const saveUserData = ( props ) => {
-  const { username, token } = props.user.user;
+export const saveUserData = ( payload ) => {
+  const { username, token } = payload.userInfo;
   const parsedUserData = {
     username,
-    messageQueue: props.messageQueue.messageQueue,
-    contactList: props.contacts.contactList
+    messageQueue: payload.messageQueue,
+    contactList: payload.contactList
   }
+  const userFile = `userData-${username}`;
   try {
-    fs.writeFile(`userData-${username}.json`, JSON.stringify(parsedUserData), (err) => {
-      if (err) throw err;
-      console.log('The file has been saved!');
-    });
+    localStorage.setItem(userFile, JSON.stringify(parsedUserData))
+    console.log('The file has been saved!');
   } catch (err) {
     console.error(err);
   }
-}
-
-module.exports = {
-  getUserData,
-  saveUserData
 }

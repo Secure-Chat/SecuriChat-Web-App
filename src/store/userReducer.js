@@ -1,16 +1,16 @@
 const initialState = {
-  user: {},
+  userInfo: {username: "hi"},
 };
 
 export default function userReducer(state = initialState, action) {
 
   let { type, payload } = action;
-  let { user } = state;
+  let { userInfo } = state;
 
   switch (type) {
     case 'SIGN_IN': {
-      user = payload;
-      return { user };
+      userInfo = payload;
+      return { userInfo };
     }
     case 'SIGN_OUT':
       return { user: {} };

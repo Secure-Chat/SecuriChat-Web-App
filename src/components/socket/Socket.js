@@ -1,47 +1,41 @@
 import React, {useEffect} from 'react';
 import { connect } from 'react-redux';
-import socketIOClient from "socket.io-client";
 import { saveUserData } from '../middleware/dataStore';
 
-const SOCKET_SERVER_URL = process.env.SOCKET_SERVER_URL;
+
 
 function Socket({connectUser, disconnectUser, sendMessage, message, messageReceipt, ...props}) {
 
-  const joinAll = (socket) => {
+  useEffect(() => {
+    connectUser();
     let rooms = [];
     for (const contact in props.contacts.contactList) {
       rooms.push(contact.room);
     }
     const payload = { rooms };
-    socket.emit( 'join', payload );
-  }
+    props.socket.socket.emit( 'join', payload );
 
-  useEffect(() => {
-    const client = socketIOClient(SOCKET_SERVER_URL);
-    connectUser({client});
-    joinAll(client);
-
-    client.on('roomSyncRequest', (payload) => {
+    props.socket.socket.on('roomSyncRequest', (payload) => {
       const { room } = payload;
     
       for (const message of props.messageQueue.messageQueue[room]) {
         sendMessage({
-          username: props.user.username,
+          username: props.user.userInfo.username,
           message,
           room
         })
       }
     })
     
-    client.on('received', (message) => {
-      const username = props.user.username;
+    props.socket.socket.on('received', (message) => {
+      const username = props.user.userInfo.username;
       messageReceipt({
         username,
         message
       });
     })
 
-    client.on('message', (payload) => {
+    props.socket.socket.on('message', (payload) => {
       message(payload);
     })
 
@@ -60,7 +54,7 @@ const mapStateToProps = state => {
   return {
     contacts: state.contacts,
     messageQueue: state.messageQueue,
-    socket: state.socket,
+    // socket: state.socket,
     user: state.user,
   }
 }

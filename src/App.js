@@ -1,10 +1,8 @@
 // Imports
 import React, {useEffect, useState} from 'react';
-import {BrowserRouter as Router, Navigate, Routes, Route, BrowserRouter} from 'react-router-dom';
-import jwt_decode from 'jwt-decode';
-import setAuthToken from './utils/setAuthToken';
-import axios from 'axios';
+import {BrowserRouter as Routes, Route, BrowserRouter} from 'react-router-dom';
 import { connect } from 'react-redux';
+import { socket, SocketContext } from './context/socket';
 
 import './App.css';
 
@@ -15,60 +13,45 @@ import About from './components/about/About';
 import Footer from './components/footer/Footer';
 import Settings from './components/settings/Settings';
 import Login from './components/login/Login';
-import Socket from './components/socket/Socket';
+// import Socket from './components/socket/Socket';
 import Contacts from './components/contacts/Contacts';
-
-axios.defaults.xsrfCookieName = 'csrftoken'
-axios.defaults.xsrfHeaderName = 'X-CSRFToken'
 
 function App(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  useEffect(() => {
-    if(props.user.user) setIsLoggedIn(true);
-    else setIsLoggedIn(false);
-  }, [props.user.user])
+  const toggleLoggedIn = () => {
+    if (isLoggedIn) setIsLoggedIn(false);
+    else setIsLoggedIn(true);
+  }
 
-  if (!isLoggedIn) {
+
     return (
-      <>
+      <SocketContext.Provider value={socket}>
         <h1>test header in app</h1>
         <BrowserRouter>
           <div className='App'>
-            <Navbar />
+            <Navbar isLoggedIn={isLoggedIn}/>
             <div className='app-display'>
               <Routes>
-                <Route path='/' element={<Login />} />
-                <Route path='signup/*' element={<Signup />} />
+                { isLoggedIn ? 
+                  <>
+                    <Route path='/' element={<Contacts />} />
+                    <Route path='settings/*' element={<Settings />}  />
+                    <Route path='contacts/*' element={<Contacts />}  />
+                  </> :
+                  <>
+                    <Route path='/' element={<Login toggleLoggedIn={toggleLoggedIn} />} />
+                    <Route path='signup/*' element={<Signup />} />
+                  </>
+                }
                 <Route path='about/*' element={<About />} />
               </Routes>
             </div>
             <Footer />
           </div>
         </BrowserRouter>
-      </>
+      </SocketContext.Provider>
     )
-  }
-  return (
-    <>
-      <Socket />
-      <h1>test header in app</h1>
-      <BrowserRouter>
-        <div className='App'>
-          <Navbar />
-          <div className='app-display'>
-            <Routes>
-              <Route path='/' element={<Contacts />} /> 
-              <Route path='about/*' element={<About />} />
-              <Route path='settings/*' element={<Settings />}  />
-              <Route path='contacts/*' element={<Contacts />}  />
-            </Routes>
-          </div>
-          <Footer />
-        </div>
-      </BrowserRouter>
-    </>
-  )
 }
 
 const mapStateToProps = state => {

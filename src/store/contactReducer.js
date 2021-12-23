@@ -1,10 +1,12 @@
 // contactList makeup:
 // contactList = {
 //   George:{
+//     username: George,
 //     room: 'somestring',
 //     messages: [message1, ...],
 //   },
 //   Cameron:{
+//     username: Cameron,
 //     room: 'someotherstring',
 //     messages: [message1, ...],
 //   },
@@ -25,16 +27,17 @@ function contactReducer(state = initialState, action) {
       return { contactList };
     }
     case 'ADD_CONTACT': {
-      const { username, global, room } = payload
+      const { username, room } = payload
       if (!(username in contactList)) {
         contactList[username] = {
-          global, room,
+          username,
+          room,
           messages: []
         };
       }
       return { contactList };
     }
-    case 'MESSAGE': {
+    case 'MESSAGE_READ': {
       const { username } = payload;
       contactList[username].messages.push(payload);
       return { contactList };

@@ -1,5 +1,5 @@
 // Imports
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import base64 from 'base-64';
@@ -12,7 +12,6 @@ const mapStateToProps = (state) => {
   return {
     contacts: state.contacts,
     messageQueue: state.messageQueue,
-    socket: state.socket,
     user: state.user,
   };
 };
@@ -24,7 +23,18 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(function Login(props) {
+  // const socket = useContext(SocketContext);
   const REACT_APP_DATABASE_URL = process.env.REACT_APP_DATABASE_URL;
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleUsername = (e) => {
+      setUsername(e.target.value);
+  }
+
+  const handlePassword = (e) => {
+      setPassword(e.target.value);
+  }
 
   const loginHandler = (e) => {
     e.preventDefault();
@@ -39,12 +49,14 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Login(props
       }
     })
     .then(response => {
+      console.log(response.data)
       const { userInfo } = response.data
       props.signin(userInfo);
       let userData = getUserData(userInfo);
       let { messageQueue, contactList } = userData;
 
       for (const friend of userInfo.friendsList) {
+        console.log(friend)
         if (!(friend.friend.userInfo.username in contactList)) {
           contactList[friend.friend.userInfo.username] = {
             room: friend.room,
@@ -54,23 +66,24 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Login(props
       }
 
       props.setMessageQueue(messageQueue);
+      props.toggleLoggedIn()
     })
     .catch(error => console.log(error.message));
   };
 
   return (
-    <Grid>
-      <FormControl onSubmit={loginHandler}>
-        <label>
-          <p>Username</p>
-          <Input type="username"/>
-        </label>
-        <label>
-          <p>Password</p>
-          <Input type ="password"/>
-        </label>
-        <Button size="small" variant="outlined" type='submit'>Log In</Button>
-      </FormControl>
-    </Grid>
+    <>
+      <form onSubmit={loginHandler}>
+      <div className="form-group">
+        <label htmlFor="username">Username</label>
+        <input type="text" name="username" value={username} onChange={handleUsername} className="form-control" />
+      </div>
+      <div className="form-group">
+        <label htmlFor="password">Password</label>
+        <input type="password" name="password" value={password} onChange={handlePassword} className="form-control" />
+      </div>
+      <button type="submit" className="btn btn-primary float-right">Submit</button>
+      </form>
+    </>
   );
 });
