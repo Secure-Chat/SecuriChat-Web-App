@@ -1,13 +1,25 @@
 //imports
 import { Button, FormControl, Modal, TextField } from '@mui/material';
 import React from 'react';
+import { connect } from 'react-redux';
 
 //components
 import Message from '../message/Message';
 
-export default function Chat(props) {
+const mapStateToProps = (state) => {
+  return {};
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  sendMessage: (payload) => dispatch({ type: 'SEND-MESSAGE', payload }),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(function Chat(props) {
   const handleMessage = (e) => {
-    // Insert message adding software here... can be code from reducer
+    props.sendMessage({ message: e.target.messageToSend.value, username: props.username, room: props.room });
   };
 
   return (
@@ -19,10 +31,10 @@ export default function Chat(props) {
           ))}
         </div>
         <FormControl onSubmit={handleMessage}>
-          <TextField onChange={props.setMessage}></TextField>
+          <TextField onChange={props.setMessage} name="messageToSend"></TextField>
           <Button type="submit">Send</Button>
         </FormControl>
       </Modal>
     </>
   );
-}
+});

@@ -13,11 +13,10 @@
 // }
 
 let initialState = {
-  contactList: {}
-}
+  contactList: {},
+};
 
 function contactReducer(state = initialState, action) {
-
   let { type, payload } = action;
   let { contactList } = state;
 
@@ -27,12 +26,12 @@ function contactReducer(state = initialState, action) {
       return { contactList };
     }
     case 'ADD_CONTACT': {
-      const { username, room } = payload
+      const { username, room } = payload;
       if (!(username in contactList)) {
         contactList[username] = {
           username,
           room,
-          messages: []
+          messages: [],
         };
       }
       return { contactList };
