@@ -4,7 +4,7 @@ export default function Settings() {
 
   return(
     <>
-    <Theme />
+    {/* <Theme /> */}
     </>
   )
 }
