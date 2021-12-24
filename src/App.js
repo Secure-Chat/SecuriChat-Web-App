@@ -1,8 +1,11 @@
 // Imports
-import React, {useEffect, useState} from 'react';
+import React, { useState} from 'react';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import { connect } from 'react-redux';
 import { socket, SocketContext } from './context/socket';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness5Icon from '@mui/icons-material/Brightness5';
+import { ThemeProvider, createTheme, IconButton } from '@mui/material';
 
 import './App.css';
 
@@ -18,18 +21,28 @@ import Contacts from './components/contacts/Contacts';
 
 function App(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
+  const chooseIconMode = darkMode ? <Brightness4Icon/> : <Brightness5Icon/> 
 
   const toggleLoggedIn = () => {
     if (isLoggedIn) setIsLoggedIn(false);
     else setIsLoggedIn(true);
   }
-
+  
+  const changeTheme = createTheme({
+    palette: {
+      mode: darkMode ? 'dark' : 'light'
+    },
+  })
 
     return (
+      <ThemeProvider theme={changeTheme}>
       <SocketContext.Provider value={socket}>
-        <h1>test header in app</h1>
           <div className='App'>
           <Router>
+          <IconButton color="inherit" onClick={() => setDarkMode(!darkMode)}>
+            {chooseIconMode}
+            </IconButton>
             <Navbar isLoggedIn={isLoggedIn}/>
             <div className='app-display'>
               <Routes>
@@ -51,6 +64,7 @@ function App(props) {
             </Router>
           </div>
       </SocketContext.Provider>
+      </ThemeProvider>
     )
 }
 

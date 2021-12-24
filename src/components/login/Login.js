@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import base64 from 'base-64';
 import { getUserData } from '../middleware/dataStore';
+import { Paper, Typography } from '@mui/material';
 
 // Components
 
@@ -71,7 +72,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Login(props
   };
 
   return (
-    <>
+    <Paper>
+      <Typography>
       <form onSubmit={loginHandler}>
       <div className="form-group">
         <label htmlFor="username">Username</label>
@@ -83,6 +85,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Login(props
       </div>
       <button type="submit" className="btn btn-primary float-right">Submit</button>
       </form>
-    </>
+      </Typography>
+    </Paper>
   );
 });

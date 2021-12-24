@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Navigate } from 'react-router-dom';
 import setAuthToken from '../../utils/setAuthToken';
 import jwt_decode from 'jwt-decode';
+import { Paper, Typography } from '@mui/material';
 const REACT_APP_SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 const Signup = (props) => {
@@ -61,6 +62,8 @@ const Signup = (props) => {
   if (redirect) return <Navigate to='/contacts' />
   
   return (
+    <Paper>
+      <Typography>
     <div className="row mt-4">
       <div className="col-md-7 offset-md-3">
         <div className="card card-body">
@@ -87,6 +90,8 @@ const Signup = (props) => {
         </div>
       </div>
     </div>
+    </Typography>
+    </Paper>
   )
 }
 
