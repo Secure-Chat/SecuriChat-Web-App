@@ -32,7 +32,9 @@ export default connect(
         </div>
         <FormControl onSubmit={handleMessage}>
           <TextField onChange={props.setMessage} name="messageToSend"></TextField>
-          <Button type="submit">Send</Button>
+          <Button variant="outlined" type="submit">
+            Send
+          </Button>
         </FormControl>
       </Modal>
     </>
