@@ -7,7 +7,9 @@ import { connect } from 'react-redux';
 import Message from '../message/Message';
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    // I may need to use the message state for this contact, in the case that the component does rerender... doubt it though
+  };
 };
 
 const mapDispatchToProps = (dispatch) => ({
