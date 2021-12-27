@@ -35,13 +35,13 @@ function App(props) {
     },
   })
 
-    return (
-      <ThemeProvider theme={changeTheme}>
+  return (
+    <ThemeProvider theme={changeTheme}>
       <SocketContext.Provider value={socket}>
           <div className='App'>
           <Router>
-          <IconButton color="inherit" onClick={() => setDarkMode(!darkMode)}>
-            {chooseIconMode}
+            <IconButton color="inherit" onClick={() => setDarkMode(!darkMode)}>
+              {chooseIconMode}
             </IconButton>
             <Navbar isLoggedIn={isLoggedIn}/>
             <div className='app-display'>
@@ -61,11 +61,11 @@ function App(props) {
               </Routes>
             </div>
             <Footer />
-            </Router>
+          </Router>
           </div>
       </SocketContext.Provider>
-      </ThemeProvider>
-    )
+    </ThemeProvider>
+  )
 }
 
 const mapStateToProps = state => {

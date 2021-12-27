@@ -2,11 +2,26 @@ import React, { useContext, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { SocketContext } from '../../context/socket';
 import { saveUserData } from '../middleware/dataStore';
+import { Card, CardContent, CardHeader } from '@mui/material';
+import Chat from '../chat/Chat';
 
 function Contacts(props) {
   const socket = useContext(SocketContext);
   const { user, contacts, messageQueue, messageReceipt, message } = props; 
   const [ displayList, setDisplayList ] = useState([]);
+  const [show, setShow] = useState(false);
+  const [showContact, setShowContact] = useState({
+    contact: '',
+    room: '',
+    lastMessage: '',
+    receivedCount: 0,
+    sentCount: 0
+  });
+
+  const toggleModal = (e, contact) => {
+    setShowContact(contact);
+    setShow(!show);
+  }
 
   useEffect(() => {
     let rooms = [];
@@ -68,8 +83,11 @@ function Contacts(props) {
           }
         }
       }
+      const lastMessage = contact.messages[contact.messages.length-1].substring(0,20);
       theList.push({
         contact: contact.username,
+        room: contact.room,
+        lastMessage,
         receivedCount,
         sentCount
       })
@@ -93,20 +111,28 @@ function Contacts(props) {
       <div className='contact-list'>
         {displayList.map((contact, idx) => {
           return (
-            <div className='contact-entry' key={idx}>
-              {contact.receivedCount ?
-              <div className='messageCount incoming'></div> :
-              <></>
-              }
-              <div className='contact-name'>{contact.contact}</div>
-              {contact.sentCount ?
-              <div className='messageCount outgoing'></div> :
-              <></>
-              }
-            </div>
+            <>
+              <Card onClick={e=>toggleModal(e, contact)} key={idx}>
+                <CardHeader>
+                  {contact.receivedCount ?
+                  <div className='messageCount incoming'></div> :
+                  <></>
+                  }
+                  <div className='contact-name'>{contact.contact}</div>
+                  {contact.sentCount ?
+                  <div className='messageCount outgoing'></div> :
+                  <></>
+                  }
+                </CardHeader>
+                <CardContent>{contact.lastMessage}</CardContent>
+              </Card>
+            </>
           )
         })}
       </div>
+      { show ? 
+      <Chat open={show} messages={props.contacts.contactList[showContact.username]} room={showContact.room} toggleModal={toggleModal}/> :
+      <></> }
     </>
   );
 }
