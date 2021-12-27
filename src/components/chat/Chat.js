@@ -9,25 +9,23 @@ import Message from '../message/Message';
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user
+    user: state.user,
   };
 };
 
-export default connect(
-  mapStateToProps,
-)(function Chat(props) {
+export default connect(mapStateToProps)(function Chat(props) {
   const socket = useContext(SocketContext);
   const handleMessage = (e) => {
     socket.emit('send', {
       message: e.target.messageToSend.value,
       username: props.user.userInfo.username,
-      room: props.room
-    })
+      room: props.room,
+    });
   };
 
   return (
     <>
-      <Modal open={props.show} onClose={e=>props.toggleModal(e, props.contact)}>
+      <Modal open={props.show} onClose={(e) => props.toggleModal(e, props.contact)}>
         <div>
           {props.messages.map((message) => (
             <Message message={message} />
