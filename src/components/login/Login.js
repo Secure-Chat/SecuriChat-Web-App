@@ -31,8 +31,6 @@ export default connect(
 
   const loginHandler = (e) => {
     e.preventDefault();
-    console.log(e.target.username.value);
-    console.log(e.target.password.value);
     const loginData = {
       username: e.target.username.value,
       password: e.target.password.value,
@@ -66,6 +64,7 @@ export default connect(
         }
 
         props.setMessageQueue(messageQueue);
+        props.setContacts(contactList);
         props.toggleLoggedIn();
       })
       .catch((error) => console.log(error.message));
@@ -74,7 +73,7 @@ export default connect(
   return (
     <Paper>
       <Typography>
-        <FormGroup onSubmit={loginHandler}>
+        <form onSubmit={loginHandler}>
           <FormLabel>Sign-In</FormLabel>
           <FormControl className="form-group">
             <InputLabel htmlFor="username">Username</InputLabel>
@@ -87,7 +86,7 @@ export default connect(
           <Button type="submit" className="btn btn-primary float-right">
             Submit
           </Button>
-        </FormGroup>
+        </form>
       </Typography>
     </Paper>
   );

@@ -10,7 +10,6 @@ function Contacts(props) {
   const { user, contacts, messageQueue, messageReceipt, message } = props;
   const [displayList, setDisplayList] = useState([]);
   const [show, setShow] = useState(false);
-  const [finishedLoading, setFinishedLoading] = useState(false);
   const [showContact, setShowContact] = useState({
     contact: '',
     room: '',
@@ -21,6 +20,7 @@ function Contacts(props) {
 
   const toggleModal = (e, contact) => {
     setShowContact(contact);
+    console.log(contact)
     setShow(!show);
   };
 
@@ -72,11 +72,14 @@ function Contacts(props) {
 
   useEffect(() => {
     const theList = [];
+    console.log(contacts)
     for (const contact in contacts.contactList) {
+      const currentContact = contacts.contactList[contact];
+      console.log(contacts.contactList[contact])
       let receivedCount = 0;
       let sentCount = 0;
-      if (messageQueue.messageQueue[contact.room]) {
-        for (const message of messageQueue.messageQueue[contact.room]) {
+      if (messageQueue.messageQueue[currentContact.room]) {
+        for (const message of messageQueue.messageQueue[currentContact.room]) {
           if (user.userInfo.username === message.username) {
             sentCount++;
           } else {
@@ -84,10 +87,12 @@ function Contacts(props) {
           }
         }
       }
-      const lastMessage = contact.messages[contact.messages.length - 1].substring(0, 20);
+      const lastMessage = `${ currentContact.messages.length ? 
+        currentContact.messages[currentContact.messages.length - 1].substring(0, 20) :
+        '' }`
       theList.push({
-        contact: contact.username,
-        room: contact.room,
+        contact,
+        room: currentContact.room,
         lastMessage,
         receivedCount,
         sentCount,
@@ -105,38 +110,33 @@ function Contacts(props) {
     }
 
     setDisplayList(theList);
-    setFinishedLoading(true);
-    console.log('finished loading')
+    console.log(theList)
   }, [contacts, messageQueue, user]);
 
-  if(!finishedLoading) {
+  if(!displayList.length) {
     return (<p>Loading...</p>)
   }
   return (
     <>
       <h1>Contacts</h1>
       <div className="contact-list">
-        {displayList.length}
 
         {displayList.map((contact, idx) => {
           return (
-            <>
-              <Card onClick={(e) => toggleModal(e, contact)} key={idx}>
-                <CardHeader>
-                  {contact.receivedCount ? <div className="messageCount incoming"></div> : <></>}
-                  <div className="contact-name">{contact.contact}</div>
-                  {contact.sentCount ? <div className="messageCount outgoing"></div> : <></>}
-                </CardHeader>
-                <CardContent>{contact.lastMessage}</CardContent>
-              </Card>
-            </>
+            <div onClick={(e) => toggleModal(e, contact)} key={idx}>
+              <div>
+                {contact.receivedCount ? <div className="messageCount incoming"></div> : <></>}
+                <div className="contact-name">{contact.contact}</div>
+                {contact.sentCount ? <div className="messageCount outgoing"></div> : <></>}
+              </div>
+              <div>{contact.lastMessage}</div>
+            </div>
           );
         })}
       </div>
       {show ? (
         <Chat
-          open={show}
-          messages={props.contacts.contactList[showContact.username]}
+          messages={props.contacts.contactList[showContact.contact].messages}
           room={showContact.room}
           toggleModal={toggleModal}
         />

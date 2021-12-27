@@ -14,6 +14,7 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps)(function Chat(props) {
+  console.log(props)
   const socket = useContext(SocketContext);
   const handleMessage = (e) => {
     socket.emit('send', {
@@ -25,7 +26,8 @@ export default connect(mapStateToProps)(function Chat(props) {
 
   return (
     <>
-      <Modal open={props.show} onClose={(e) => props.toggleModal(e, props.contact)}>
+      <div>
+        <div onClick={(e) => props.toggleModal(e, props.contact)}>X</div>
         <div>
           {props.messages.map((message) => (
             <Message message={message} />
@@ -37,7 +39,7 @@ export default connect(mapStateToProps)(function Chat(props) {
             Send
           </Button>
         </FormControl>
-      </Modal>
+      </div>
     </>
   );
 });
