@@ -1,30 +1,33 @@
 //imports
 import { Button, FormControl, Modal, TextField } from '@mui/material';
-import React from 'react';
+import React, { useContext } from 'react';
 import { connect } from 'react-redux';
+import { SocketContext } from '../../context/socket';
 
 //components
 import Message from '../message/Message';
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    user: state.user
+  };
 };
-
-const mapDispatchToProps = (dispatch) => ({
-  sendMessage: (payload) => dispatch({ type: 'SEND-MESSAGE', payload }),
-});
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
 )(function Chat(props) {
+  const socket = useContext(SocketContext);
   const handleMessage = (e) => {
-    props.sendMessage({ message: e.target.messageToSend.value, username: props.username, room: props.room });
+    socket.emit('send', {
+      message: e.target.messageToSend.value,
+      username: props.user.userInfo.username,
+      room: props.room
+    })
   };
 
   return (
     <>
-      <Modal show={props.show} onClose={props.setShow(false)}>
+      <Modal open={props.show} onClose={e=>props.toggleModal(e, props.contact)}>
         <div>
           {props.messages.map((message) => (
             <Message message={message} />
