@@ -67,6 +67,7 @@ export default connect(
         }
 
         props.setMessageQueue(messageQueue);
+        props.setContacts(contactList);
         props.toggleLoggedIn();
       })
       .catch((error) => console.log(error.message));
