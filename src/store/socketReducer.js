@@ -1,15 +1,14 @@
-import { io } from "socket.io-client";
+import { io } from 'socket.io-client';
 const SOCKET_SERVER_URL = process.env.SOCKET_SERVER_URL;
 
 const initialState = {
-  socket: null
-}
+  socket: null,
+};
 
 export default function socketReducer(state = initialState, action) {
-  
   let { type, payload } = action;
   let { socket } = state;
-  console.log(action)
+  console.log(action);
 
   switch (type) {
     case 'CONNECT': {
@@ -26,12 +25,12 @@ export default function socketReducer(state = initialState, action) {
       socket.emit('send', {
         username,
         message,
-        room
-      })
+        room,
+      });
       return { socket };
     }
     case 'MESSAGE': {
-      socket.emit('received', payload)
+      socket.emit('received', payload);
     }
     default:
       return state;
@@ -42,6 +41,4 @@ export default function socketReducer(state = initialState, action) {
 
   //   return () => socket.disconnect();
   // }, [])
-
-
 }
