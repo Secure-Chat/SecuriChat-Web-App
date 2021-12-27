@@ -1,12 +1,15 @@
 // Imports
-import React, { useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import base64 from 'base-64';
 import { getUserData } from '../middleware/dataStore';
-import { Button, FormControl, FormGroup, FormLabel, Input, InputLabel, Paper, Typography } from '@mui/material';
+import { Button, FormControl, FormLabel, Input, InputLabel, Paper, TextField, Typography } from '@mui/material';
 
 // Components
+
+// Styles
+import './Login.scss';
 
 const mapStateToProps = (state) => {
   return {
@@ -50,8 +53,8 @@ export default connect(
         console.log(response.data);
         const { userInfo } = response.data;
         props.signin(userInfo);
-        let userData = getUserData(userInfo);
-        let { messageQueue, contactList } = userData;
+        const userData = getUserData(userInfo);
+        const { messageQueue, contactList } = userData;
 
         for (const friend of userInfo.friendsList) {
           console.log(friend);
@@ -73,17 +76,11 @@ export default connect(
   return (
     <Paper>
       <Typography>
-        <form onSubmit={loginHandler}>
-          <FormLabel>Sign-In</FormLabel>
-          <FormControl className="form-group">
-            <InputLabel htmlFor="username">Username</InputLabel>
-            <Input type="text" name="username" className="form-control" />
-          </FormControl>
-          <FormControl className="form-group">
-            <InputLabel htmlFor="password">Password</InputLabel>
-            <Input type="password" name="password" className="form-control" />
-          </FormControl>
-          <Button type="submit" className="btn btn-primary float-right">
+        <form id="login-form" onSubmit={loginHandler}>
+          <FormLabel id="label">Sign-In</FormLabel>
+          <TextField className="login-field" label="Username" style={{ margin: '10px' }} />
+          <TextField className="login-field" label="Password" type="password" />
+          <Button variant="outlined" type="submit">
             Submit
           </Button>
         </form>
