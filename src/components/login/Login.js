@@ -75,7 +75,7 @@ export default connect(
   return (
     <Paper>
       <Typography>
-        <form onSubmit={loginHandler}>
+        <form id="loginForm" onSubmit={loginHandler}>
           <FormLabel>Sign-In</FormLabel>
           <FormControl className="form-group">
             <InputLabel htmlFor="username">Username</InputLabel>
