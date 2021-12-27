@@ -1,12 +1,15 @@
 // Imports
-import React, { useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import base64 from 'base-64';
 import { getUserData } from '../middleware/dataStore';
-import { Button, FormControl, FormGroup, FormLabel, Input, InputLabel, Paper, Typography } from '@mui/material';
+import { Button, FormControl, FormLabel, Input, InputLabel, Paper, Typography } from '@mui/material';
 
 // Components
+
+// Styles
+import './Login.scss';
 
 const mapStateToProps = (state) => {
   return {
@@ -31,8 +34,6 @@ export default connect(
 
   const loginHandler = (e) => {
     e.preventDefault();
-    console.log(e.target.username.value);
-    console.log(e.target.password.value);
     const loginData = {
       username: e.target.username.value,
       password: e.target.password.value,
@@ -52,8 +53,8 @@ export default connect(
         console.log(response.data);
         const { userInfo } = response.data;
         props.signin(userInfo);
-        let userData = getUserData(userInfo);
-        let { messageQueue, contactList } = userData;
+        const userData = getUserData(userInfo);
+        const { messageQueue, contactList } = userData;
 
         for (const friend of userInfo.friendsList) {
           console.log(friend);
@@ -74,7 +75,7 @@ export default connect(
   return (
     <Paper>
       <Typography>
-        <FormGroup onSubmit={loginHandler}>
+        <form onSubmit={loginHandler}>
           <FormLabel>Sign-In</FormLabel>
           <FormControl className="form-group">
             <InputLabel htmlFor="username">Username</InputLabel>
@@ -87,7 +88,7 @@ export default connect(
           <Button type="submit" className="btn btn-primary float-right">
             Submit
           </Button>
-        </FormGroup>
+        </form>
       </Typography>
     </Paper>
   );
