@@ -15,12 +15,11 @@ const Navbar = (props) => {
     <Paper>
       <Typography>
         <nav className="navbar nav-bg">
-          {/* <Settings/> */}
           <div className="container">
             <Link to="/">
               <img src={logo} alt="SecuriChat" />
             </Link>
-            {props.isLoggedIn ? ( // is the user logged in?
+            {props.isLoggedIn ? (
               <ul>
                 <li className="nav-item">
                   <NavLink className="nav-link" to="/contacts">
