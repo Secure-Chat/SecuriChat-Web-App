@@ -57,8 +57,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Login(props
 
       for (const friend of userInfo.friendsList) {
         console.log(friend)
-        if (!(friend.friend.userInfo.username in contactList)) {
-          contactList[friend.friend.userInfo.username] = {
+        if (!(friend.friendName in contactList)) {
+          contactList[friend.friendName] = {
             room: friend.room,
             messages: []
           }
