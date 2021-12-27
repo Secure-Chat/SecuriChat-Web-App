@@ -1,10 +1,17 @@
+import { NavLink } from 'react-router-dom';
+import { Paper, Typography } from '@mui/material';
+import InfoIcon from '@mui/icons-material/Info';
+
 export default function Footer() {
-    return (
-        <footer className="footer nav-bg--color">
-            <div className="container text-center">
-                {/* We should add an about page link here */}
-                <span className="text-muted">©2022 SecuriChat</span>
-            </div>
-        </footer>
-    )
+  return (
+    <Paper className="footer nav-bg--color">
+      <Typography className="container text-center">
+        <span className="text-muted">SecuriChat © 2022</span>
+        <NavLink className="nav-link" to="/about">
+          About
+          <InfoIcon />
+        </NavLink>
+      </Typography>
+    </Paper>
+  );
 }

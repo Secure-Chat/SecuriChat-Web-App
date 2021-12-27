@@ -10,14 +10,22 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(function Message(props) {
+export default connect(mapStateToProps)(function Message(props) {
   return (
     <>
-      {props.message.username === props.user.userInfo.username ? <p className='messageRight'>{props.message.text}</p> : <p className='messageLeft'>{props.message.text}</p>}
+      {props.message.username === props.user.userInfo.username ? (
+        <div className="messageRight">
+          <div classname="bubblePoint"></div>
+          <div className="messageContent">{props.message.message}</div>
+          <div className="messageTime">{props.message.messageTime}</div>
+        </div>
+      ) : (
+      <div className="messageLeft">
+        <div classname="bubblePoint"></div>
+        <div className="messageContent">{props.message.message}</div>
+        <div className="messageTime">{props.message.messageTime}</div>
+      </div>
+      )}
     </>
   );
 });

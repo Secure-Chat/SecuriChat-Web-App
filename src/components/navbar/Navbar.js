@@ -1,30 +1,60 @@
-import React from "react";
-import { NavLink, Link } from "react-router-dom";
-import Settings from '../settings/Theme';
+import React from 'react';
+import { NavLink, Link } from 'react-router-dom';
+
+// mui
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import SettingsApplicationsIcon from '@mui/icons-material/SettingsApplications';
+import ContactsIcon from '@mui/icons-material/Contacts';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { IconButton, Paper, Typography } from '@mui/material';
+
+import logo from '../../img/logo.png';
 
 const Navbar = (props) => {
   return (
-    <nav className="navbar nav-bg">
-      <Settings/>
-      <div className="container"><Link to="/"><span className="h3">SecuriChat</span></Link>
-          <ul className="navbar-nav mr-auto">
-            <li className="nav-item"><NavLink className="nav-link"  to="/about">About</NavLink></li>
-          </ul>
-          {
-            props.isLoggedIn ? // is the user logged in?
-            <ul>
-              <li className="nav-item"><NavLink className="nav-link"  to="/contacts">Contacts</NavLink></li>
-              <li className="nav-item"><NavLink className="nav-link"  to="/settings">Settings</NavLink></li>
-              <li className="nav-item"><span onClick={props.handleLogout} className="nav-link">Logout</span></li>
-            </ul>
-            :
-            <ul>
-              <li className="nav-item"><NavLink className="nav-link"  to="/signup">Create Account</NavLink></li>
-            </ul>
-          }
-      </div>
-    </nav>
+    <Paper>
+      <Typography>
+        <nav className="navbar nav-bg">
+          <div className="container">
+            <Link to="/">
+              <img src={logo} alt="SecuriChat" />
+            </Link>
+            {props.isLoggedIn ? (
+              <ul>
+                <li className="nav-item">
+                  <NavLink className="nav-link" to="/contacts">
+                    <ContactsIcon />
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink className="nav-link" to="/settings">
+                    <SettingsApplicationsIcon />
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <span onClick={props.handleLogout} className="nav-link">
+                    <LogoutIcon />
+                  </span>
+                </li>
+              </ul>
+            ) : (
+              <ul>
+                <li className="nav-item">
+                  <NavLink className="nav-link" to="/signup">
+                    Create Account
+                    <AccountCircleIcon />
+                  </NavLink>
+                </li>
+              </ul>
+            )}
+            <IconButton color="inherit" onClick={() => props.setDarkMode(!props.darkMode)}>
+              {props.chooseIconMode}
+            </IconButton>
+          </div>
+        </nav>
+      </Typography>
+    </Paper>
   );
-}
+};
 
 export default Navbar;

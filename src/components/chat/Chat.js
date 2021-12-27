@@ -1,28 +1,45 @@
 //imports
 import { Button, FormControl, Modal, TextField } from '@mui/material';
-import React from 'react';
+import React, { useContext } from 'react';
+import { connect } from 'react-redux';
+import { SocketContext } from '../../context/socket';
 
 //components
 import Message from '../message/Message';
 
-export default function Chat(props) {
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+  };
+};
+
+export default connect(mapStateToProps)(function Chat(props) {
+  console.log(props)
+  const socket = useContext(SocketContext);
   const handleMessage = (e) => {
-    // Insert message adding software here... can be code from reducer
+    socket.emit('send', {
+      message: e.target.messageToSend.value,
+      username: props.user.userInfo.username,
+      room: props.room,
+    });
   };
 
   return (
     <>
-      <Modal show={props.show} onClose={props.setShow(false)}>
+      <div>
+        <div onClick={(e) => props.toggleModal(e, props.contact)}>X</div>
         <div>
           {props.messages.map((message) => (
             <Message message={message} />
           ))}
         </div>
         <FormControl onSubmit={handleMessage}>
-          <TextField onChange={props.setMessage}></TextField>
-          <Button type="submit">Send</Button>
+          <TextField onChange={props.setMessage} name="messageToSend"></TextField>
+          <Button variant="outlined" type="submit">
+            Send
+          </Button>
         </FormControl>
-      </Modal>
+      </div>
     </>
   );
-}
+});
