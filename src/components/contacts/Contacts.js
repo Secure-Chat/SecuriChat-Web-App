@@ -10,6 +10,7 @@ function Contacts(props) {
   const { user, contacts, messageQueue, messageReceipt, message } = props; 
   const [ displayList, setDisplayList ] = useState([]);
   const [show, setShow] = useState(false);
+  const [finishedLoading, setFinishedLoading] = useState(false);
   const [showContact, setShowContact] = useState({
     contact: '',
     room: '',
@@ -103,12 +104,19 @@ function Contacts(props) {
       }
     }
 
-    setDisplayList(theList)
+    setDisplayList(theList);
+    setFinishedLoading(true);
+    console.log('finished loading')
   }, [contacts, messageQueue, user])
 
+  if(!finishedLoading) {
+    return (<p>Loading...</p>)
+  }
   return (
     <>
+      <h1>Contacts</h1>
       <div className='contact-list'>
+        {displayList.length}
         {displayList.map((contact, idx) => {
           return (
             <>
