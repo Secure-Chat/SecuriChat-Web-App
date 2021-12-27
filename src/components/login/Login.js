@@ -52,13 +52,13 @@ export default connect(
         console.log(response.data);
         const { userInfo } = response.data;
         props.signin(userInfo);
-        const userData = getUserData(userInfo);
-        const { messageQueue, contactList } = userData;
+        let userData = getUserData(userInfo);
+        let { messageQueue, contactList } = userData;
 
         for (const friend of userInfo.friendsList) {
           console.log(friend);
-          if (!(friend.friend.userInfo.username in contactList)) {
-            contactList[friend.friend.userInfo.username] = {
+          if (!(friend.friendName in contactList)) {
+            contactList[friend.friendName] = {
               room: friend.room,
               messages: [],
             };
