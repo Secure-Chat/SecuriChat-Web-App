@@ -24,7 +24,6 @@ function App(props) {
     else setIsLoggedIn(true);
   }
 
-
     return (
       <SocketContext.Provider value={socket}>
         <h1>test header in app</h1>

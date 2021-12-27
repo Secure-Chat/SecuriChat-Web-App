@@ -1,5 +1,5 @@
 import { io } from "socket.io-client";
-const SOCKET_SERVER_URL = process.env.SOCKET_SERVER_URL;
+const SOCKET_SERVER_URL = process.env._URL;
 
 const initialState = {
   socket: null
@@ -36,12 +36,4 @@ export default function socketReducer(state = initialState, action) {
     default:
       return state;
   }
-  // useEffect(() => {
-  //   const socket = socketIOClient(SOCKET_SERVER_URL);
-  //   socket.on()
-
-  //   return () => socket.disconnect();
-  // }, [])
-
-
 }
