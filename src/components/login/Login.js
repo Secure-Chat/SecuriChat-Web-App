@@ -1,23 +1,17 @@
 // Imports
-import React, { useState } from "react";
-import { connect } from "react-redux";
-import axios from "axios";
-import base64 from "base-64";
-import { getUserData } from "../middleware/dataStore";
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
+import axios from 'axios';
+import base64 from 'base-64';
+import { getUserData } from '../middleware/dataStore';
 
 // Styles
-import "./Login.scss";
-import { Button, FormLabel, Paper, TextField, Typography, IconButton, InputAdornment } from '@mui/material';
-import { makeStyles } from "@mui/styles";
-import { NavLink } from "react-router-dom";
+import './Login.scss';
+import { Button, FormLabel, Paper, TextField, Typography } from '@mui/material';
 import { AccountCircleIcon, VisibilityIcon, VisibilityOffIcon } from '@mui/icons-material/';
 
 // Components
-const useStyles = makeStyles({
-  btn: {
-    color: "",
-  },
-});
 
 const mapStateToProps = (state) => {
   return {
@@ -39,9 +33,6 @@ export default connect(
 )(function Login(props) {
   const [showPassword, setShowPassword] = useState(false);
   const setPasswordIcon = showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />
-
-  const classes = useStyles();
-
   // const socket = useContext(SocketContext);
   const REACT_APP_DATABASE_URL = process.env.REACT_APP_DATABASE_URL;
 
@@ -93,24 +84,22 @@ export default connect(
   };
 
   return (
-    <Paper>
+    <Paper id="login-div">
       <Typography>
-        <div id="login-div">
-          <form id="login-form" onSubmit={loginHandler}>
+        <div>
+          <form onSubmit={loginHandler}>
             <FormLabel id="label">Sign-In</FormLabel>
             <TextField
               required
               className="login-field"
               label="Username"
               name="username"
-              style={{ margin: "10px" }}
             />
             <TextField
               required
               className="login-field"
               label="Password"
               name="password"
-              style={{ margin: "10px" }}
               type={showPassword ? "text" : "password"}
               onClick={handleShowPassword}
               onMouseDown={handleMouseDownPassword}
@@ -127,16 +116,16 @@ export default connect(
                 ),
               }}
             />
-            <Button className={classes.btn} variant="outlined" type="submit">
+            <Button variant="outlined" type="submit">
               Submit
             </Button>
           </form>
-          <div className="create-account-link">
-            <NavLink to="/signup">
-              Create Account
-              <AccountCircleIcon />
-            </NavLink>
-          </div>
+          <fieldset className="create-account-field">
+            <legend>New to SecuriChat?</legend>
+            <Button variant="outlined" component={NavLink} to="/signup">
+              Create an Account
+            </Button>
+          </fieldset>
         </div>
       </Typography>
     </Paper>
