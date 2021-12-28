@@ -8,18 +8,13 @@ const About = () => {
     <Paper>
       <Typography>
         <div>
-          <h1>We Are SecuriChat!</h1>
-          <h2>Chat, Secured</h2>
-          <h4>
+          <Typography variant="h3" align="center">We Are SecuriChat!</Typography>
+          <Typography variant="h5" align="center">Chat, Secured</Typography>
+          <Typography variant="subtitle1" align="center">
             Privately, securely chat with your contacts, without worrying about your messages or private information
             being stored.
-          </h4>
-          <p>With SecuriChat you can: </p>
-          <ul>
-            <li>Do stuff</li>
-            <li>And Things</li>
-          </ul>
-          <h3>The Team</h3>
+          </Typography>
+          <Typography variant="h5" align="center">The Team</Typography>
           <div className="teamContainer">
             <div className="teamCard">
               <p className="teamTitle">Evan Woodworth</p>
