@@ -17,7 +17,7 @@ const Navbar = (props) => {
         <nav className="navbar nav-bg">
           <div className="container">
             <Link to="/">
-              <img src={logo} alt="SecuriChat" />
+              <img id="logo" src={logo} alt="SecuriChat" />
             </Link>
             {props.isLoggedIn ? (
               <ul>
