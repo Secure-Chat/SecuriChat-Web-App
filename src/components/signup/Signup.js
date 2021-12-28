@@ -35,7 +35,7 @@ const Signup = (props) => {
 
     // Check to make sure passwords match
     if (password === confirmPassword && password.length >= 8) {
-      let url = `${REACT_APP_SERVER_URL}/signup`;
+      const url = `${REACT_APP_SERVER_URL}/signup`;
       const request = {
         url,
         headers: {
@@ -62,7 +62,7 @@ const Signup = (props) => {
         alert('Either email already exist or an error occured on our end. Please try again...');
         })
     } else {
-      if (!password === confirmPassword) {
+      if (password !== confirmPassword) {
         alert('Passwords do not match. Please try again...');
       } else {
         alert('Password needs to be at least 8 characters. Please try again...');
@@ -74,14 +74,14 @@ const Signup = (props) => {
   
   return (
     <Paper>
-          <Typography>Signup</Typography>
-          <FormLabel onSubmit={handleSubmit}>
-              <TextField label="username" onChange={handleUsername}/>
-              <TextField label="email" onChange={handleEmail}/>
-              <TextField label="password" onChange={handlePassword}/>
-              <TextField label="verify password" onChange={handleConfirmPassword}/>
-            <Button type="submit" className="btn btn-primary float-right">Submit</Button>
-          </FormLabel>
+      <Typography>Signup</Typography>
+      <FormLabel onSubmit={handleSubmit}>
+        <TextField label="username" onChange={handleUsername}/>
+        <TextField label="email" onChange={handleEmail}/>
+        <TextField label="password" onChange={handlePassword}/>
+        <TextField label="verify password" onChange={handleConfirmPassword}/>
+        <Button type="submit" className="btn btn-primary float-right">Submit</Button>
+      </FormLabel>
     </Paper>
   )
 }
