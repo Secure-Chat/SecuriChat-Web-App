@@ -17,11 +17,7 @@ import { fontFamily } from '@mui/system';
 
 const useStyles = makeStyles({
   btn: {
-<<<<<<< HEAD
-    color: 'red'
-=======
     color: 'red',
->>>>>>> cbc17d6be4bd31fb15d0267e28b9ae80ca83cd97
   },
 });
 
@@ -90,16 +86,23 @@ export default connect(
   return (
     <Paper>
       <Typography>
-        <div id='login-div'>
+        <div id="login-div">
           <form id="login-form" onSubmit={loginHandler}>
             <FormLabel id="label">Sign-In</FormLabel>
             <TextField required className="login-field" label="Username" name="username" style={{ margin: '10px' }} />
-            <TextField required className="login-field" label="Password" type="password" name="password" style={{ margin: '10px' }} />
+            <TextField
+              required
+              className="login-field"
+              label="Password"
+              type="password"
+              name="password"
+              style={{ margin: '10px' }}
+            />
             <Button className={classes.btn} variant="outlined" type="submit">
               Submit
             </Button>
           </form>
-          <div className='create-account-link'>
+          <div className="create-account-link">
             <NavLink to="/signup">
               Create Account
               <AccountCircleIcon />
