@@ -96,7 +96,7 @@ const Signup = (props) => {
   return (
     <Paper id="signup-div">
       <form onSubmit={handleSubmit}>
-        <FormLabel id="signup-label">Sign-up</FormLabel>
+        <FormLabel id="signup-label">Sign-Up</FormLabel>
         <TextField required className="input-field" label="Username" onChange={handleUsername} />
         <TextField required label="Email" className="input-field" onChange={handleEmail} />
 
