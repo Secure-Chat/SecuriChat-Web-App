@@ -8,7 +8,6 @@ const initialState = {
 export default function socketReducer(state = initialState, action) {
   let { type, payload } = action;
   let { socket } = state;
-  console.log(action);
 
   switch (type) {
     case 'CONNECT': {

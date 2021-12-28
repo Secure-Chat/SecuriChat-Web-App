@@ -14,9 +14,18 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps)(function Chat(props) {
-  console.log(props)
   const socket = useContext(SocketContext);
+
+  console.log(props.messages)
   const handleMessage = (e) => {
+    e.preventDefault();
+    console.log('sending')
+    console.log({
+      message: e.target.messageToSend.value,
+      username: props.user.userInfo.username,
+      room: props.room,
+    })
+    console.log(socket)
     socket.emit('send', {
       message: e.target.messageToSend.value,
       username: props.user.userInfo.username,
@@ -33,12 +42,12 @@ export default connect(mapStateToProps)(function Chat(props) {
             <Message message={message} />
           ))}
         </div>
-        <FormControl onSubmit={handleMessage}>
+        <form onSubmit={handleMessage}>
           <TextField onChange={props.setMessage} name="messageToSend"></TextField>
           <Button variant="outlined" type="submit">
             Send
           </Button>
-        </FormControl>
+        </form>
       </div>
     </>
   );
