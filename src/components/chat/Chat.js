@@ -1,6 +1,7 @@
 //imports
 import { Button, FormControl, Modal, TextField } from '@mui/material';
-import React, { useContext } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { saveUserData } from '../middleware/dataStore';
 import { connect } from 'react-redux';
 import { SocketContext } from '../../context/socket';
 
@@ -9,41 +10,102 @@ import Message from '../message/Message';
 
 const mapStateToProps = (state) => {
   return {
+    contacts: state.contacts,
+    messageQueue: state.messageQueue,
     user: state.user,
   };
 };
 
-export default connect(mapStateToProps)(function Chat(props) {
-  const socket = useContext(SocketContext);
+const mapDispatchToProps = (dispatch) => ({
+  readMessage: (payload) => dispatch({ type: 'MESSAGE_READ', payload }),
+});
 
-  console.log(props.messages)
-  const handleMessage = (e) => {
+export default connect(mapStateToProps, mapDispatchToProps)(function Chat(props) {
+  const socket = useContext(SocketContext);
+  const [messageToSend, setMessageToSend] = useState('');
+  const [messageList, setMessageList] = useState([]);
+
+  const handleMessageToSend = (e) => {
+    setMessageToSend(e.target.value);
+  }
+
+  const handleSendMessage = (e) => {
     e.preventDefault();
     console.log('sending')
     console.log({
-      message: e.target.messageToSend.value,
+      message: messageToSend,
       username: props.user.userInfo.username,
       room: props.room,
     })
     console.log(socket)
     socket.emit('send', {
-      message: e.target.messageToSend.value,
+      message: messageToSend,
       username: props.user.userInfo.username,
       room: props.room,
     });
+    setMessageToSend('');
   };
+
+  useEffect(() => {
+    if (!socket.connected) socket.connect();
+
+    return () => {
+      saveUserData({
+        userInfo: props.user.userInfo,
+        messageQueue: props.messageQueue.messageQueue,
+        contactList: props.contacts.contactList,
+      });
+    }
+  }, [socket])
+
+  useEffect(() => {
+    let theQueue = [...props.messageQueue.messageQueue[props.room]];
+    let chatHistory = [...props.contacts.contactList[props.contact].messages];
+
+    for ( const message of theQueue ) {
+      if ( !(message.username === props.user.userInfo.username) ) {
+        props.readMessage({
+          room: props.room,
+          message: message.message,
+          username: message.username,
+          messageTime: message.messageTime
+        })
+      } else {
+        chatHistory.push(message);
+      }
+    }
+
+    // a quick bubble sort
+    for (let i = 0; i < chatHistory.length; i++) {
+      for (let j = 0; j < chatHistory.length - i - 1; j++) {
+        if (chatHistory[j].messageTime > chatHistory[j + 1].messageTime) {
+          const temp = chatHistory[j];
+          chatHistory[j] = chatHistory[j + 1];
+          chatHistory[j + 1] = temp;
+        }
+      }
+    }
+
+    setMessageList(chatHistory);
+
+  }, [props.messageQueue, props.room, props.contact, props.contactList])
 
   return (
     <>
       <div>
         <div onClick={(e) => props.toggleModal(e, props.contact)}>X</div>
-        <div>
-          {props.messages.map((message) => (
-            <Message message={message} />
-          ))}
+        <div className="chatHistory">
+          <div>
+            {messageList.map((message) => (
+              <Message message={message} />
+            ))}
+          </div>
         </div>
-        <form onSubmit={handleMessage}>
-          <TextField onChange={props.setMessage} name="messageToSend"></TextField>
+        <form onSubmit={handleSendMessage}>
+          <TextField 
+            onChange={handleMessageToSend} 
+            name="messageToSend"
+            value={messageToSend}></TextField>
           <Button variant="outlined" type="submit">
             Send
           </Button>

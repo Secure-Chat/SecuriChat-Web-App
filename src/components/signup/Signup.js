@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Navigate } from 'react-router-dom';
 import setAuthToken from '../../utils/setAuthToken';
 import jwt_decode from 'jwt-decode';
-import { Paper, Typography } from '@mui/material';
+import { Paper, Typography, Button, FormLabel, TextField } from '@mui/material';
 const REACT_APP_SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 const Signup = (props) => {

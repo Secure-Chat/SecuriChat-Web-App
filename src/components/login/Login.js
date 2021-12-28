@@ -66,6 +66,12 @@ export default connect(
         const { messageQueue, contactList } = userData;
 
         for (const friend of userInfo.friendsList) {
+          // // for testing: clear chat history for user logging in
+          // contactList[friend.friendName] = {
+          //   room: friend.room,
+          //   messages: [],
+          // };
+          
           if (!(friend.friendName in contactList)) {
             contactList[friend.friendName] = {
               room: friend.room,

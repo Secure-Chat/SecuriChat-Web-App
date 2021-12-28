@@ -24,12 +24,11 @@ function messageReducer(state = initialState, action) {
     }
     case 'MESSAGE_READ': {
       const { room, message, username, messageTime } = payload;
-      const messagePosition = messageQueue[room].indexOf({
-        message,
-        username,
-        messageTime
-      })
-      if (messagePosition > -1) messageQueue[room].slice(messagePosition, 1);
+      for(let i=0; i<messageQueue[room].length; i++) {
+        if (messageTime === messageQueue[room][i].messageTime) {
+          messageQueue[room].splice(i,1);
+        }
+      }
       return { messageQueue }
     }
     case 'MESSAGE': {
@@ -46,14 +45,14 @@ function messageReducer(state = initialState, action) {
       return { messageQueue };
     }
     case 'RECEIVED': {
-      const { room, message, username, messageTime } = payload;
-      if (username === message.username) {
-        const messagePosition = messageQueue[room].indexOf({
-          message,
-          username,
-          messageTime
-        })
-        if (messagePosition > -1) messageQueue[room].slice(messagePosition, 1);
+      const { room, messageTime } = payload.message
+      const { username } = payload;
+      if (username === payload.message.username) {
+        for(let i=0; i<messageQueue[room].length; i++) {
+          if (messageTime === messageQueue[room][i].messageTime) {
+            messageQueue[room].splice(i,1);
+          }
+        }
       }
       return { messageQueue };
     }
