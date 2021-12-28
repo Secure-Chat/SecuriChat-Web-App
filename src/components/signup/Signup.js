@@ -6,8 +6,7 @@ import jwt_decode from 'jwt-decode';
 import setAuthToken from '../../utils/setAuthToken';
 
 //styling
-import { Paper, Button, FormLabel, TextField, IconButton } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+import { Paper, Button, FormLabel, TextField, IconButton, InputAdornment } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import './Signup.scss';
@@ -21,7 +20,6 @@ const Signup = (props) => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [redirect, setRedirect] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const [redirect, setRedirect] = useState(false);
   const setPasswordIcon = showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />;
 
   const handleShowPassword = () => {
@@ -31,7 +29,7 @@ const Signup = (props) => {
   const handleMouseDownPassword = (e) => {
     setShowPassword(!showPassword);
   };
-  
+
   const handleUsername = (e) => {
     setUsername(e.target.value);
   };
@@ -113,33 +111,29 @@ const Signup = (props) => {
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
-                <IconButton
-                onClick={handleShowPassword}
-                onMouseDown={handleMouseDownPassword}
-                >
+                <IconButton onClick={handleShowPassword} onMouseDown={handleMouseDownPassword}>
                   {setPasswordIcon}
                 </IconButton>
               </InputAdornment>
-            )
+            ),
           }}
-        >
-        </TextField>
+        ></TextField>
 
-        <TextField required label="Verify Password" className="input-field"
-          onChange={handleConfirmPassword} 
-          onClick ={handleShowPassword} 
+        <TextField
+          required
+          label="Verify Password"
+          className="input-field"
+          onChange={handleConfirmPassword}
+          onClick={handleShowPassword}
           onMouseDown={handleMouseDownPassword}
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
-                <IconButton
-                onClick={handleShowPassword}
-                >
-                  {setPasswordIcon}
-                </IconButton>
+                <IconButton onClick={handleShowPassword}>{setPasswordIcon}</IconButton>
               </InputAdornment>
-            )
-          }}/>
+            ),
+          }}
+        />
         <Button type="submit" id="btn" variant="contained" size="small">
           Submit
         </Button>
