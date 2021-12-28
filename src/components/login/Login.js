@@ -7,7 +7,6 @@ import { getUserData } from '../middleware/dataStore';
 import { Button, FormLabel, Paper, TextField, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
-
 // Styles
 import './Login.scss';
 import { fontFamily } from '@mui/system';
@@ -16,9 +15,9 @@ import { fontFamily } from '@mui/system';
 
 const useStyles = makeStyles({
   btn: {
-    color: 'red'
-  }
-})
+    color: 'red',
+  },
+});
 
 const mapStateToProps = (state) => {
   return {
