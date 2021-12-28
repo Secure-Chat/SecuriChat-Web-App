@@ -1,23 +1,24 @@
 // Imports
-import React from 'react';
-import { connect } from 'react-redux';
-import axios from 'axios';
-import base64 from 'base-64';
-import { getUserData } from '../middleware/dataStore';
+import React, { useState } from "react";
+import { connect } from "react-redux";
+import axios from "axios";
+import base64 from "base-64";
+import { getUserData } from "../middleware/dataStore";
 
 // Styles
-import './Login.scss';
-import { Button, FormLabel, Paper, TextField, Typography } from '@mui/material';
-import { makeStyles } from '@mui/styles';
-import { NavLink } from 'react-router-dom';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { fontFamily } from '@mui/system';
+import "./Login.scss";
+import { Button, FormLabel, Paper, TextField, Typography, IconButton, InputAdornment } from '@mui/material';
+import { makeStyles } from "@mui/styles";
+import { NavLink } from "react-router-dom";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
 // Components
 
 const useStyles = makeStyles({
   btn: {
-    color: 'red'
+    color: "",
   },
 });
 
@@ -30,19 +31,30 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  signin: (response) => dispatch({ type: 'SIGN_IN', payload: response }),
-  setContacts: (payload) => dispatch({ type: 'SET_CONTACTS', payload }),
-  setMessageQueue: (payload) => dispatch({ type: 'SET_MESSAGEQUEUE', payload }),
+  signin: (response) => dispatch({ type: "SIGN_IN", payload: response }),
+  setContacts: (payload) => dispatch({ type: "SET_CONTACTS", payload }),
+  setMessageQueue: (payload) => dispatch({ type: "SET_MESSAGEQUEUE", payload }),
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(function Login(props) {
+  const [showPassword, setShowPassword] = useState(false);
+  const setPasswordIcon = showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />
+
   const classes = useStyles();
 
   // const socket = useContext(SocketContext);
   const REACT_APP_DATABASE_URL = process.env.REACT_APP_DATABASE_URL;
+
+  const handleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleMouseDownPassword = (e) => {
+    setShowPassword(!showPassword);
+  };
 
   const loginHandler = (e) => {
     e.preventDefault();
@@ -86,16 +98,43 @@ export default connect(
   return (
     <Paper>
       <Typography>
-        <div id='login-div'>
+        <div id="login-div">
           <form id="login-form" onSubmit={loginHandler}>
             <FormLabel id="label">Sign-In</FormLabel>
-            <TextField required className="login-field" label="Username" name="username" style={{ margin: '10px' }} />
-            <TextField required className="login-field" label="Password" type="password" name="password" style={{ margin: '10px' }} />
+            <TextField
+              required
+              className="login-field"
+              label="Username"
+              name="username"
+              style={{ margin: "10px" }}
+            />
+            <TextField
+              required
+              className="login-field"
+              label="Password"
+              name="password"
+              style={{ margin: "10px" }}
+              type={showPassword ? "text" : "password"}
+              onClick={handleShowPassword}
+              onMouseDown={handleMouseDownPassword}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={handleShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                    >
+                      {setPasswordIcon}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
             <Button className={classes.btn} variant="outlined" type="submit">
               Submit
             </Button>
           </form>
-          <div className='create-account-link'>
+          <div className="create-account-link">
             <NavLink to="/signup">
               Create Account
               <AccountCircleIcon />
