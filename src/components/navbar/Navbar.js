@@ -13,19 +13,11 @@ const useStyles = makeStyles({
   logo: {
     height: '100px',
   },
-  // createAccount: {
-  //   float: 'right',
-  //   textDecoration: 'none',
-  //   color: 'black',
-  //   position: 'relative',
-  //   bottom: '120px'
-  // }
 });
 
 const Navbar = (props) => {
   const classes = useStyles();
-
-  // if (props.isLoggedIn) {
+  
   return props.isLoggedIn ? (
     <Paper>
       <Typography>

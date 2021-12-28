@@ -9,6 +9,7 @@ import { getUserData } from '../middleware/dataStore';
 // Styles
 import './Login.scss';
 import { Button, FormLabel, Paper, TextField, Typography } from '@mui/material';
+import { AccountCircleIcon, VisibilityIcon, VisibilityOffIcon } from '@mui/icons-material/';
 
 // Components
 
@@ -21,17 +22,27 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  signin: (response) => dispatch({ type: 'SIGN_IN', payload: response }),
-  setContacts: (payload) => dispatch({ type: 'SET_CONTACTS', payload }),
-  setMessageQueue: (payload) => dispatch({ type: 'SET_MESSAGEQUEUE', payload }),
+  signin: (response) => dispatch({ type: "SIGN_IN", payload: response }),
+  setContacts: (payload) => dispatch({ type: "SET_CONTACTS", payload }),
+  setMessageQueue: (payload) => dispatch({ type: "SET_MESSAGEQUEUE", payload }),
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(function Login(props) {
+  const [showPassword, setShowPassword] = useState(false);
+  const setPasswordIcon = showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />
   // const socket = useContext(SocketContext);
   const REACT_APP_DATABASE_URL = process.env.REACT_APP_DATABASE_URL;
+
+  const handleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleMouseDownPassword = (e) => {
+    setShowPassword(!showPassword);
+  };
 
   const loginHandler = (e) => {
     e.preventDefault();
@@ -78,9 +89,34 @@ export default connect(
         <div>
           <form onSubmit={loginHandler}>
             <FormLabel id="label">Sign-In</FormLabel>
-            <TextField required className="login-field" label="Username" name="username" />
-            <TextField required className="login-field" label="Password" type="password" name="password" />
-            <Button id="submit" variant="contained" type="submit">
+            <TextField
+              required
+              className="login-field"
+              label="Username"
+              name="username"
+            />
+            <TextField
+              required
+              className="login-field"
+              label="Password"
+              name="password"
+              type={showPassword ? "text" : "password"}
+              onClick={handleShowPassword}
+              onMouseDown={handleMouseDownPassword}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={handleShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                    >
+                      {setPasswordIcon}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
+            <Button variant="outlined" type="submit">
               Submit
             </Button>
           </form>

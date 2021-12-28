@@ -21,6 +21,7 @@ const Signup = (props) => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [redirect, setRedirect] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [redirect, setRedirect] = useState(false);
   const setPasswordIcon = showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />;
 
   const handleShowPassword = () => {
@@ -30,7 +31,7 @@ const Signup = (props) => {
   const handleMouseDownPassword = (e) => {
     setShowPassword(!showPassword);
   };
-
+  
   const handleUsername = (e) => {
     setUsername(e.target.value);
   };
@@ -109,13 +110,36 @@ const Signup = (props) => {
           onChange={handlePassword}
           onClick={handleShowPassword}
           onMouseDown={handleMouseDownPassword}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                onClick={handleShowPassword}
+                onMouseDown={handleMouseDownPassword}
+                >
+                  {setPasswordIcon}
+                </IconButton>
+              </InputAdornment>
+            )
+          }}
         >
-          <IconButton onClick={handleShowPassword} onMouseDown={handleMouseDownPassword}>
-            {setPasswordIcon}
-          </IconButton>
         </TextField>
 
-        <TextField required label="Verify Password" className="input-field" onChange={handleConfirmPassword} />
+        <TextField required label="Verify Password" className="input-field"
+          onChange={handleConfirmPassword} 
+          onClick ={handleShowPassword} 
+          onMouseDown={handleMouseDownPassword}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                onClick={handleShowPassword}
+                >
+                  {setPasswordIcon}
+                </IconButton>
+              </InputAdornment>
+            )
+          }}/>
         <Button type="submit" id="btn" variant="contained" size="small">
           Submit
         </Button>
