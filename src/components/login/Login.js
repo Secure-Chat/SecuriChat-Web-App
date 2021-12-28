@@ -10,12 +10,9 @@ import "./Login.scss";
 import { Button, FormLabel, Paper, TextField, Typography, IconButton, InputAdornment } from '@mui/material';
 import { makeStyles } from "@mui/styles";
 import { NavLink } from "react-router-dom";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import { AccountCircleIcon, VisibilityIcon, VisibilityOffIcon } from '@mui/icons-material/';
 
 // Components
-
 const useStyles = makeStyles({
   btn: {
     color: "",
