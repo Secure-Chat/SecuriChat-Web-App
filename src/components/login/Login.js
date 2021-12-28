@@ -9,15 +9,8 @@ import { getUserData } from '../middleware/dataStore';
 // Styles
 import './Login.scss';
 import { Button, FormLabel, Paper, TextField, Typography } from '@mui/material';
-import { makeStyles } from '@mui/styles';
 
 // Components
-
-const useStyles = makeStyles({
-  btn: {
-    color: 'red',
-  },
-});
 
 const mapStateToProps = (state) => {
   return {
@@ -37,8 +30,6 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(function Login(props) {
-  const classes = useStyles();
-
   // const socket = useContext(SocketContext);
   const REACT_APP_DATABASE_URL = process.env.REACT_APP_DATABASE_URL;
 
@@ -89,7 +80,7 @@ export default connect(
             <FormLabel id="label">Sign-In</FormLabel>
             <TextField required className="login-field" label="Username" name="username" />
             <TextField required className="login-field" label="Password" type="password" name="password" />
-            <Button id="submit" className={classes.btn} variant="contained" type="submit">
+            <Button id="submit" variant="contained" type="submit">
               Submit
             </Button>
           </form>

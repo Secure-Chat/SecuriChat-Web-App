@@ -2,18 +2,17 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Navigate } from 'react-router-dom';
-import setAuthToken from '../../utils/setAuthToken';
 import jwt_decode from 'jwt-decode';
-import { Paper, Typography, Button, FormLabel, TextField, IconButton } from '@mui/material';
+import setAuthToken from '../../utils/setAuthToken';
+
+//styling
+import { Paper, Button, FormLabel, TextField, IconButton } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import './Signup.scss';
 
 const REACT_APP_SERVER_URL = process.env.REACT_APP_SERVER_URL;
-
-const useStyles = makeStyles({
-  inputField: {},
-});
 
 const Signup = (props) => {
   const [username, setUsername] = useState('');
@@ -23,7 +22,6 @@ const Signup = (props) => {
   const [redirect, setRedirect] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const setPasswordIcon = showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />;
-  const classes = useStyles();
 
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -97,16 +95,17 @@ const Signup = (props) => {
   if (redirect) return <Navigate to="/contacts" />;
 
   return (
-    <Paper>
-      <Typography>Signup</Typography>
-      <FormLabel onSubmit={handleSubmit}>
-        <TextField required className={classes.inputField} label="username" onChange={handleUsername} />
-        <TextField required label="email" onChange={handleEmail} />
+    <Paper id="signup-div">
+      <form onSubmit={handleSubmit}>
+        <FormLabel id="signup-label">Sign-up</FormLabel>
+        <TextField required className="input-field" label="Username" onChange={handleUsername} />
+        <TextField required label="Email" className="input-field" onChange={handleEmail} />
 
         <TextField
           type={showPassword ? 'text' : 'password'}
           required
-          label="password"
+          label="Password"
+          className="input-field"
           onChange={handlePassword}
           onClick={handleShowPassword}
           onMouseDown={handleMouseDownPassword}
@@ -116,11 +115,11 @@ const Signup = (props) => {
           </IconButton>
         </TextField>
 
-        <TextField required label="verify password" onChange={handleConfirmPassword} />
-        <Button type="submit" className="btn btn-primary float-right" variant="contained" size="small">
+        <TextField required label="Verify Password" className="input-field" onChange={handleConfirmPassword} />
+        <Button type="submit" id="btn" variant="contained" size="small">
           Submit
         </Button>
-      </FormLabel>
+      </form>
     </Paper>
   );
 };

@@ -1,0 +1,22 @@
+#signup-div {
+  max-width: 450px;
+  margin: auto;
+}
+
+form {
+  #signup-label {
+    font-size: 25px;
+    margin: 10px;
+    position: relative;
+    top: 8px;
+  }
+
+  .input-field {
+    width: 90%;
+    margin: 20px 5% 0px 5%;
+  }
+
+  #btn {
+    margin: 20px 5% 20px 5%;
+  }
+}

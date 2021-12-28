@@ -3,22 +3,23 @@
   margin: auto;
 }
 
-#label {
-  font-size: 25px;
-  margin: 10px;
-  position: relative;
-  top: 8px;
-}
+form {
+  #label {
+    font-size: 25px;
+    margin: 10px;
+    position: relative;
+    top: 8px;
+  }
 
-.login-field {
-  width: 90%;
-  margin: 20px 5% 0px 5%;
-}
+  .login-field {
+    width: 90%;
+    margin: 20px 5% 0px 5%;
+  }
 
-#submit {
-  margin: 20px 5% 10px 5%;
+  #submit {
+    margin: 20px 5% 10px 5%;
+  }
 }
-
 .create-account-field {
   border-bottom: 0px;
   border-right: 0px;
