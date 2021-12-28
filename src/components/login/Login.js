@@ -89,8 +89,8 @@ export default connect(
       <Typography>
         <form id="login-form" onSubmit={loginHandler}>
           <FormLabel id="label">Sign-In</FormLabel>
-          <TextField className="login-field" label="Username" style={{ margin: '10px' }} />
-          <TextField className="login-field" label="Password" type="password" style={{ margin: '10px' }} />
+          <TextField className="login-field" label="Username" name="username" style={{ margin: '10px' }} />
+          <TextField className="login-field" label="Password" type="password" name="password" style={{ margin: '10px' }} />
           <Button className={classes.btn} variant="outlined" type="submit">
             Submit
           </Button>
