@@ -35,6 +35,9 @@ function messageReducer(state = initialState, action) {
     case 'MESSAGE': {
       const { room, message, username, messageTime } = payload;
       if(!(room in messageQueue)) messageQueue[room] = [];
+      for (const qMessage of messageQueue[room]) {
+        if(qMessage.messageTime === messageTime) return { messageQueue }
+      }
       messageQueue[room].push({
         message,
         username,

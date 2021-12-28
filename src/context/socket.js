@@ -1,6 +1,5 @@
-import { createContext } from 'react';
-import socketio from 'socket.io-client';
-const SOCKET_SERVER_URL = process.env.SOCKET_SERVER_URL;
+import React from 'react';
+import { io } from 'socket.io-client';
 
-export const socket = socketio.connect(SOCKET_SERVER_URL);
-export const SocketContext = createContext();
+export const socket = io(process.env.REACT_APP_SOCKET_URL, { transports: ['websocket'] });
+export const SocketContext = React.createContext();

@@ -38,7 +38,7 @@ const Navbar = (props) => {
             {props.isLoggedIn ? (
               <ul>
                 <li className="nav-item">
-                  <NavLink className="nav-link" to="/contacts">
+                  <NavLink className="nav-link" to="/">
                     <ContactsIcon />
                   </NavLink>
                 </li>
