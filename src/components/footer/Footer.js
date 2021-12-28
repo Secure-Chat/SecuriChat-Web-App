@@ -7,7 +7,8 @@ const useStyles = makeStyles({
   navText: {
    float: 'right',
    textDecoration: 'none',
-   color: '#fbab60'
+  //  color: '#fbab60'
+  color: 'black'
   },
   sChat: {
   position: 'relative',
