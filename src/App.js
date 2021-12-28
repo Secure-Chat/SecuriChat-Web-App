@@ -15,7 +15,6 @@ import Signup from './components/signup/Signup';
 import About from './components/about/About';
 import Footer from './components/footer/Footer';
 import Login from './components/login/Login';
-// import Socket from './components/socket/Socket';
 import Contacts from './components/contacts/Contacts';
 
 function App(props) {
@@ -35,44 +34,37 @@ function App(props) {
   });
 
   return (
-    <ThemeProvider theme={changeTheme}>
-      <SocketContext.Provider value={socket}>
-        <div className="App">
-          <Router>
-            <Navbar
-              chooseIconMode={chooseIconMode}
-              darkMode={darkMode}
-              setDarkMode={setDarkMode}
-              isLoggedIn={isLoggedIn}
-            />
-            <div className="app-display">
-              <Routes>
-                {isLoggedIn ? (
-                  <>
-                    <Route path="/" element={<Contacts />} />
-                    <Route path="contacts/*" element={<Contacts />} />
-                  </>
-                ) : (
-                  <>
-                    <Route path="/" element={<Login toggleLoggedIn={toggleLoggedIn} />} />
-                    <Route path="signup/*" element={<Signup />} />
-                  </>
-                )}
-                <Route path="about/*" element={<About />} />
-              </Routes>
-            </div>
-            <Footer />
-          </Router>
-        </div>
-      </SocketContext.Provider>
-    </ThemeProvider>
+    <SocketContext.Provider value={socket}>
+      <ThemeProvider theme={changeTheme}>
+          <div className="App">
+            <Router>
+              <Navbar
+                chooseIconMode={chooseIconMode}
+                darkMode={darkMode}
+                setDarkMode={setDarkMode}
+                isLoggedIn={isLoggedIn}
+              />
+              <div className="app-display">
+                <Routes>
+                  {isLoggedIn ? (
+                    <>
+                      <Route path="/" element={<Contacts />} />
+                    </>
+                  ) : (
+                    <>
+                      <Route path="/" element={<Login toggleLoggedIn={toggleLoggedIn} />} />
+                      <Route path="signup/*" element={<Signup />} />
+                    </>
+                  )}
+                  <Route path="about/*" element={<About />} />
+                </Routes>
+              </div>
+              <Footer />
+            </Router>
+          </div>
+      </ThemeProvider>
+    </SocketContext.Provider>
   );
 }
 
-const mapStateToProps = (state) => {
-  return {
-    socket: state.socket,
-  };
-};
-
-export default connect(mapStateToProps)(App);
+export default App;

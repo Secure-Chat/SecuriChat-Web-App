@@ -47,14 +47,12 @@ export default connect(
         }
       )
       .then((response) => {
-        console.log(response.data);
         const { userInfo } = response.data;
         props.signin(userInfo);
         let userData = getUserData(userInfo);
         let { messageQueue, contactList } = userData;
 
         for (const friend of userInfo.friendsList) {
-          console.log(friend);
           if (!(friend.friendName in contactList)) {
             contactList[friend.friendName] = {
               room: friend.room,

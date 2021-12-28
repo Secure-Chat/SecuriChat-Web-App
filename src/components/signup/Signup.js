@@ -39,7 +39,6 @@ const Signup = (props) => {
       let url = `${REACT_APP_SERVER_URL}/signup/`;
       axios.post(url, payload)
       .then(response => {
-        console.log(response.data);
         const { token } = response.data;
         localStorage.setItem('jwtToken', token);
         setAuthToken(token)
