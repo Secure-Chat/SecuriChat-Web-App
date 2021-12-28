@@ -6,14 +6,13 @@ import setAuthToken from '../../utils/setAuthToken';
 import jwt_decode from 'jwt-decode';
 import { Paper, Typography, Button, FormLabel, TextField, IconButton, InputAdornment} from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import { VisibilityIcon, VisibilityOffIcon } from '@mui/icons-material/';
 
 const REACT_APP_SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 const useStyles = makeStyles({
-  inputField: {
-
+  btn: {
+    color: 'black'
   }
 })
 
@@ -103,7 +102,6 @@ const Signup = (props) => {
       <FormLabel onSubmit={handleSubmit}>
         <TextField required className={classes.inputField} label="username" onChange={handleUsername}/>
         <TextField required label="email" onChange={handleEmail}/>
-
         <TextField
           label="password"
           type={showPassword ? "text" : "password"}  
@@ -125,12 +123,11 @@ const Signup = (props) => {
           }}
         >
         </TextField>
-
         <TextField 
-          label="password"
+          label="verify password"
           type={showPassword ? "text" : "password"}  
           required 
-          onChange={handlePassword}
+          onChange={handleConfirmPassword}
           onClick ={handleShowPassword} 
           onMouseDown={handleMouseDownPassword}
           InputProps={{
@@ -138,7 +135,7 @@ const Signup = (props) => {
               <InputAdornment position="end">
                 <IconButton
                 onClick={handleShowPassword}
-                onMouseDown={handleMouseDownPassword}
+                // onMouseDown={handleMouseDownPassword}
                 >
                   {setPasswordIcon}
                 </IconButton>
