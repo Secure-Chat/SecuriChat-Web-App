@@ -9,7 +9,8 @@ import { getUserData } from '../middleware/dataStore';
 // Styles
 import './Login.scss';
 import { Button, FormLabel, IconButton, InputAdornment, Paper, TextField, Typography } from '@mui/material';
-import { VisibilityIcon, VisibilityOffIcon } from '@mui/icons-material/';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 // Components
 
@@ -33,7 +34,6 @@ export default connect(
 )(function Login(props) {
   const [showPassword, setShowPassword] = useState(false);
   const setPasswordIcon = showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />;
-  // const socket = useContext(SocketContext);
   const REACT_APP_DATABASE_URL = process.env.REACT_APP_DATABASE_URL;
 
   const handleShowPassword = () => {
@@ -108,7 +108,7 @@ export default connect(
                 ),
               }}
             />
-            <Button variant="outlined" type="submit">
+            <Button id="submit" variant="contained" type="submit">
               Submit
             </Button>
           </form>

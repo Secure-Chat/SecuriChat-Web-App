@@ -134,7 +134,7 @@ const Signup = (props) => {
             ),
           }}
         />
-        <Button type="submit" id="btn" variant="contained" size="small">
+        <Button type="submit" id="btn" variant="contained">
           Submit
         </Button>
       </form>
