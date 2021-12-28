@@ -4,12 +4,21 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import base64 from 'base-64';
 import { getUserData } from '../middleware/dataStore';
-import { Button, FormControl, FormLabel, Input, InputLabel, Paper, TextField, Typography } from '@mui/material';
+import { Button, FormLabel, Paper, TextField, Typography } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 
-// Components
 
 // Styles
 import './Login.scss';
+import { fontFamily } from '@mui/system';
+
+// Components
+
+const useStyles = makeStyles({
+  btn: {
+    color: 'red'
+  }
+})
 
 const mapStateToProps = (state) => {
   return {
@@ -29,6 +38,8 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(function Login(props) {
+  const classes = useStyles();
+
   // const socket = useContext(SocketContext);
   const REACT_APP_DATABASE_URL = process.env.REACT_APP_DATABASE_URL;
 
@@ -79,8 +90,8 @@ export default connect(
         <form id="login-form" onSubmit={loginHandler}>
           <FormLabel id="label">Sign-In</FormLabel>
           <TextField className="login-field" label="Username" style={{ margin: '10px' }} />
-          <TextField className="login-field" label="Password" type="password" />
-          <Button variant="outlined" type="submit">
+          <TextField className="login-field" label="Password" type="password" style={{ margin: '10px' }} />
+          <Button className={classes.btn} variant="outlined" type="submit">
             Submit
           </Button>
         </form>
