@@ -4,6 +4,7 @@ import { SocketContext } from '../../context/socket';
 import { saveUserData } from '../middleware/dataStore';
 import { Card, CardContent, CardHeader } from '@mui/material';
 import Chat from '../chat/Chat';
+import ContactSettings from '../settings/ContactSettings';
 
 function Contacts(props) {
   const socket = useContext(SocketContext);
@@ -17,6 +18,8 @@ function Contacts(props) {
     receivedCount: 0,
     sentCount: 0,
   });
+
+  const [encryptionStatus, setEncryptionStatus] = useState(true);
 
   const toggleModal = (e, contact) => {
     setShowContact(contact);
@@ -129,6 +132,11 @@ function Contacts(props) {
                 <div className="contact-name">{contact.contact}</div>
                 {contact.sentCount ? <div className="messageCount outgoing"></div> : <></>}
               </div>
+              <ContactSettings 
+              darkMode={props.darkMode}
+              encryptionStatus={encryptionStatus}
+              setEncryptionStatus={setEncryptionStatus}
+              />
               <div>{contact.lastMessage}</div>
             </div>
           );
@@ -139,6 +147,7 @@ function Contacts(props) {
           messages={props.contacts.contactList[showContact.contact].messages}
           room={showContact.room}
           toggleModal={toggleModal}
+          encryptionStatus={encryptionStatus}
         />
       ) : (
         <></>

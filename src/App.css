@@ -29,12 +29,15 @@ body {
 }
 
 .nav-link{
+	display: flex;
+	margin-left: 30px;
+	margin-top: 300px;
 	color:white !important;
 	text-decoration: none;
 }
 
 .nav-bg{
-	background-color: rgba(0,0,0,.5) !important;
+	background-color: rgba(155, 169, 227, 0.5) !important;
 
 }
 
@@ -49,7 +52,15 @@ body {
 }
 
 .nav-bg--color{
-	background-color: rgba(0,0,0,.5) !important;
+	background-color: rgba(104, 29, 29, 0.5) !important;
+}
+
+.nav-link {
+	color:rgba(104, 29, 29, 0.5);
+}
+
+#logo {
+	width: 10%
 }
 
 li{

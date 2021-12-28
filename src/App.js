@@ -50,8 +50,12 @@ function App(props) {
               <Routes>
                 {isLoggedIn ? (
                   <>
-                    <Route path="/" element={<Contacts />} />
-                    <Route path="contacts/*" element={<Contacts />} />
+                    <Route path="/" element= {
+                    <Contacts 
+                      darkMode={darkMode}
+                    />} />
+                    <Route path="contacts/*" element= {
+                    <Contacts darkMode={darkMode} />} />
                   </>
                 ) : (
                   <>

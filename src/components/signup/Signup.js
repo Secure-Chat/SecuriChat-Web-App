@@ -35,21 +35,32 @@ const Signup = (props) => {
 
     // Check to make sure passwords match
     if (password === confirmPassword && password.length >= 8) {
-      const payload = { username, email, password };
-      let url = `${REACT_APP_SERVER_URL}/signup/`;
-      axios.post(url, payload)
-      .then(response => {
-        console.log(response.data);
+      let url = `${REACT_APP_SERVER_URL}/signup`;
+      const request = {
+        url,
+        headers: {
+          'Access-Control-Allow-Origin': null
+        },
+        data: {
+          username,
+          email,
+          password
+        }
+      };
+
+      axios(request)
+        .then(response => {
+        console.log(response.data, '<-- RESPONSE DOT DATA --<<');
         const { token } = response.data;
         localStorage.setItem('jwtToken', token);
         setAuthToken(token)
         const decoded = jwt_decode(token);  // Decode token to get the user data
         props.nowCurrentUser(decoded);      // Set current user
         setRedirect(true);
-      }).catch(error => {
-        console.log(error);
+        }).catch(error => {
+        console.log(error, '<-- SIGN UP ERROR --<<');
         alert('Either email already exist or an error occured on our end. Please try again...');
-      })
+        })
     } else {
       if (!password === confirmPassword) {
         alert('Passwords do not match. Please try again...');
