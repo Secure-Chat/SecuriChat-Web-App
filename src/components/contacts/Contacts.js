@@ -8,7 +8,6 @@ import ContactSettings from '../settings/ContactSettings';
 
 function Contacts(props) {
   const socket = useContext(SocketContext);
-  const { user, contacts, messageQueue, messageReceipt, message } = props;
   const [displayList, setDisplayList] = useState([]);
   const [show, setShow] = useState(false);
   const [showContact, setShowContact] = useState({
@@ -23,67 +22,69 @@ function Contacts(props) {
 
   const toggleModal = (e, contact) => {
     setShowContact(contact);
-    console.log(contact)
+    console.log(props.contacts.contactList[contact.contact])
     setShow(!show);
   };
 
   useEffect(() => {
+    if (!socket.connected) socket.connect();
     let rooms = [];
-    for (const contact in contacts.contactList) {
-      rooms.push(contact.room);
+    for (const contact in props.contacts.contactList) {
+      rooms.push(props.contacts.contactList[contact].room);
     }
     const payload = { rooms };
     socket.emit('join', payload);
 
     socket.on('roomSyncRequest', (payload) => {
       const { room } = payload;
-
-      for (const message of messageQueue.messageQueue[room]) {
-        if (message.username === user.userInfo.username) {
-          const sendPayload = {
-            username: user.userInfo.username,
-            message: message.message,
-            room,
-          };
-          if ('messageTime' in message) sendPayload['messageTime'] = message.messageTime;
-          socket.emit('send', sendPayload);
+      if (room in props.messageQueue.messageQueue) {
+        for (const message of props.messageQueue.messageQueue[room]) {
+          if (message.username === props.user.userInfo.username) {
+            const sendPayload = {
+              username: props.user.userInfo.username,
+              message: message.message,
+              room,
+            };
+            if ('messageTime' in message) sendPayload['messageTime'] = message.messageTime;
+            socket.emit('send', sendPayload);
+          }
         }
       }
     });
 
     socket.on('received', (message) => {
-      const username = user.userInfo.username;
-      messageReceipt({
+      const username = props.user.userInfo.username;
+      props.messageReceipt({
         username,
         message,
       });
     });
 
     socket.on('message', (payload) => {
-      message(payload);
+      props.message(payload);
     });
 
+    socket.on('disconnect', () => console.log("disconnected"))
+
     return () => {
-      socket.removeAllListeners();
+      socket.disconnect();
       saveUserData({
-        userInfo: user.userInfo,
-        messageQueue: messageQueue.messageQueue,
-        contactList: contacts.contactList,
+        userInfo: props.user.userInfo,
+        messageQueue: props.messageQueue.messageQueue,
+        contactList: props.contacts.contactList,
       });
     };
-  }, [socket, user, contacts, messageQueue, messageReceipt, message]);
+  }, [socket]);
 
   useEffect(() => {
     const theList = [];
-    console.log(contacts)
-    for (const contact in contacts.contactList) {
-      const currentContact = contacts.contactList[contact];
-      console.log(contacts.contactList[contact])
+    for (const contact in props.contacts.contactList) {
+      const currentContact = props.contacts.contactList[contact];
       let receivedCount = 0;
       let sentCount = 0;
-      if (messageQueue.messageQueue[currentContact.room]) {
-        for (const message of messageQueue.messageQueue[currentContact.room]) {
-          if (user.userInfo.username === message.username) {
+      if (props.messageQueue.messageQueue[currentContact.room]) {
+        for (const message of props.messageQueue.messageQueue[currentContact.room]) {
+          if (props.user.userInfo.username === message.username) {
             sentCount++;
           } else {
             receivedCount++;
@@ -113,8 +114,7 @@ function Contacts(props) {
     }
 
     setDisplayList(theList);
-    console.log(theList)
-  }, [contacts, messageQueue, user]);
+  }, [props.contacts, props.messageQueue, props.user]);
 
   if(!displayList.length) {
     return (<p>Loading...</p>)
@@ -128,9 +128,9 @@ function Contacts(props) {
           return (
             <div onClick={(e) => toggleModal(e, contact)} key={idx}>
               <div>
-                {contact.receivedCount ? <div className="messageCount incoming"></div> : <></>}
+                {contact.receivedCount ? <div className="messageCount incoming">{contact.receivedCount}</div> : <></>}
                 <div className="contact-name">{contact.contact}</div>
-                {contact.sentCount ? <div className="messageCount outgoing"></div> : <></>}
+                {contact.sentCount ? <div className="messageCount outgoing">{contact.sentCount}</div> : <></>}
               </div>
               <ContactSettings 
               darkMode={props.darkMode}

@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Navigate } from 'react-router-dom';
 import setAuthToken from '../../utils/setAuthToken';
 import jwt_decode from 'jwt-decode';
-import { Paper, Typography, Button, FormLabel, TextField} from '@mui/material';
+import { Paper, Typography } from '@mui/material';
 const REACT_APP_SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 const Signup = (props) => {
@@ -13,22 +13,22 @@ const Signup = (props) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [redirect, setRedirect] = useState(false);
-  
+
   const handleUsername = (e) => {
     setUsername(e.target.value);
-  }
+  };
 
   const handleEmail = (e) => {
     setEmail(e.target.value);
-  }
+  };
 
-  const handlePassword = e => {
+  const handlePassword = (e) => {
     setPassword(e.target.value);
-  }
+  };
 
-  const handleConfirmPassword = e => {
+  const handleConfirmPassword = (e) => {
     setConfirmPassword(e.target.value);
-  }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -61,6 +61,10 @@ const Signup = (props) => {
         console.log(error, '<-- SIGN UP ERROR --<<');
         alert('Either email already exist or an error occured on our end. Please try again...');
         })
+        .catch((error) => {
+          console.log(error);
+          alert('Either email already exist or an error occured on our end. Please try again...');
+        });
     } else {
       if (password !== confirmPassword) {
         alert('Passwords do not match. Please try again...');
@@ -68,10 +72,10 @@ const Signup = (props) => {
         alert('Password needs to be at least 8 characters. Please try again...');
       }
     }
-  }
+  };
 
-  if (redirect) return <Navigate to='/contacts' />
-  
+  if (redirect) return <Navigate to="/contacts" />;
+
   return (
     <Paper>
       <Typography>Signup</Typography>
@@ -83,7 +87,7 @@ const Signup = (props) => {
         <Button type="submit" className="btn btn-primary float-right">Submit</Button>
       </FormLabel>
     </Paper>
-  )
-}
+  );
+};
 
 export default Signup;
