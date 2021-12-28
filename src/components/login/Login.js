@@ -5,7 +5,6 @@ import axios from 'axios';
 import base64 from 'base-64';
 import { getUserData } from '../middleware/dataStore';
 
-
 // Styles
 import './Login.scss';
 import { Button, FormLabel, Paper, TextField, Typography } from '@mui/material';
@@ -18,7 +17,11 @@ import { fontFamily } from '@mui/system';
 
 const useStyles = makeStyles({
   btn: {
+<<<<<<< HEAD
     color: 'red'
+=======
+    color: 'red',
+>>>>>>> cbc17d6be4bd31fb15d0267e28b9ae80ca83cd97
   },
 });
 
@@ -63,14 +66,12 @@ export default connect(
         }
       )
       .then((response) => {
-        console.log(response.data);
         const { userInfo } = response.data;
         props.signin(userInfo);
         const userData = getUserData(userInfo);
         const { messageQueue, contactList } = userData;
 
         for (const friend of userInfo.friendsList) {
-          console.log(friend);
           if (!(friend.friendName in contactList)) {
             contactList[friend.friendName] = {
               room: friend.room,
