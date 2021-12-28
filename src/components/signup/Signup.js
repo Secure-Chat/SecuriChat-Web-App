@@ -4,8 +4,18 @@ import axios from 'axios';
 import { Navigate } from 'react-router-dom';
 import setAuthToken from '../../utils/setAuthToken';
 import jwt_decode from 'jwt-decode';
-import { Paper, Typography, Button, FormLabel, TextField} from '@mui/material';
+import { Paper, Typography, Button, FormLabel, TextField, IconButton} from '@mui/material';
+import { makeStyles } from '@mui/styles';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+
 const REACT_APP_SERVER_URL = process.env.REACT_APP_SERVER_URL;
+
+const useStyles = makeStyles({
+  inputField: {
+
+  }
+})
 
 const Signup = (props) => {
   const [username, setUsername] = useState('');
@@ -13,6 +23,17 @@ const Signup = (props) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [redirect, setRedirect] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const setPasswordIcon = showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />;
+  const classes = useStyles();
+
+  const handleShowPassword = () => {
+    setShowPassword(!showPassword)
+  }
+
+  const handleMouseDownPassword = (e) => {
+    setShowPassword(!showPassword)
+  }
   
   const handleUsername = (e) => {
     setUsername(e.target.value);
@@ -76,11 +97,27 @@ const Signup = (props) => {
     <Paper>
       <Typography>Signup</Typography>
       <FormLabel onSubmit={handleSubmit}>
-        <TextField label="username" onChange={handleUsername}/>
-        <TextField label="email" onChange={handleEmail}/>
-        <TextField label="password" onChange={handlePassword}/>
-        <TextField label="verify password" onChange={handleConfirmPassword}/>
-        <Button type="submit" className="btn btn-primary float-right">Submit</Button>
+        <TextField required className={classes.inputField} label="username" onChange={handleUsername}/>
+        <TextField required label="email" onChange={handleEmail}/>
+
+        <TextField
+          type={showPassword ? 'text' : 'password'}  
+          required 
+          label="password"
+          onChange={handlePassword}
+          onClick ={handleShowPassword} 
+          onMouseDown={handleMouseDownPassword}
+        >
+          <IconButton
+          onClick={handleShowPassword}
+          onMouseDown={handleMouseDownPassword}
+          >
+          {setPasswordIcon}
+          </IconButton>
+        </TextField>
+
+        <TextField required label="verify password" onChange={handleConfirmPassword}/>
+        <Button type="submit" className="btn btn-primary float-right" variant="contained" size="small">Submit</Button>
       </FormLabel>
     </Paper>
   )
