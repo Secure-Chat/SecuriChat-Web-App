@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Navigate } from 'react-router-dom';
 import setAuthToken from '../../utils/setAuthToken';
 import jwt_decode from 'jwt-decode';
-import { Paper, Typography } from '@mui/material';
+import { Paper, Typography, Button, FormLabel, TextField} from '@mui/material';
 const REACT_APP_SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 const Signup = (props) => {
@@ -74,34 +74,14 @@ const Signup = (props) => {
   
   return (
     <Paper>
-      <Typography>
-    <div className="row mt-4">
-      <div className="col-md-7 offset-md-3">
-        <div className="card card-body">
-          <h2 className="py-2">Signup</h2>
-          <form onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label htmlFor="username">Username</label>
-              <input type="text" name="username" value={username} onChange={handleUsername} className="form-control" />
-            </div>
-            <div className="form-group">
-              <label htmlFor="email">Email</label>
-              <input type="email" name="email" value={email} onChange={handleEmail} className="form-control" />
-            </div>
-            <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <input type="password" name="password" value={password} onChange={handlePassword} className="form-control" />
-            </div>
-            <div className="form-group">
-              <label htmlFor="confirmPassword">Verify Password</label>
-              <input type="password" name="confirmPassword" value={confirmPassword} onChange={handleConfirmPassword} className="form-control" />
-            </div>
-            <button type="submit" className="btn btn-primary float-right">Submit</button>
-          </form>
-        </div>
-      </div>
-    </div>
-    </Typography>
+          <Typography>Signup</Typography>
+          <FormLabel onSubmit={handleSubmit}>
+              <TextField label="username" onChange={handleUsername}/>
+              <TextField label="email" onChange={handleEmail}/>
+              <TextField label="password" onChange={handlePassword}/>
+              <TextField label="verify password" onChange={handleConfirmPassword}/>
+            <Button type="submit" className="btn btn-primary float-right">Submit</Button>
+          </FormLabel>
     </Paper>
   )
 }
