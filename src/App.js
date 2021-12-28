@@ -52,10 +52,7 @@ function App(props) {
                   <>
                     <Route path="/" element= {
                     <Contacts 
-                      chooseIconMode={chooseIconMode}
                       darkMode={darkMode}
-                      setDarkMode={setDarkMode}
-                      isLoggedIn={isLoggedIn}
                     />} />
                     <Route path="contacts/*" element= {
                     <Contacts darkMode={darkMode} />} />
