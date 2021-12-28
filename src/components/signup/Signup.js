@@ -4,15 +4,11 @@ import axios from 'axios';
 import { Navigate } from 'react-router-dom';
 import setAuthToken from '../../utils/setAuthToken';
 import jwt_decode from 'jwt-decode';
-<<<<<<< HEAD
-import { Paper, Typography, Button, FormLabel, TextField, IconButton} from '@mui/material';
+import { Paper, Typography, Button, FormLabel, TextField, IconButton, InputAdornment} from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
-=======
-import { Paper, Typography } from '@mui/material';
->>>>>>> cbc17d6be4bd31fb15d0267e28b9ae80ca83cd97
 const REACT_APP_SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 const useStyles = makeStyles({
@@ -26,9 +22,8 @@ const Signup = (props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [redirect, setRedirect] = useState(false);
-<<<<<<< HEAD
   const [showPassword, setShowPassword] = useState(false);
+  const [redirect, setRedirect] = useState(false);
   const setPasswordIcon = showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />;
   const classes = useStyles();
 
@@ -40,9 +35,6 @@ const Signup = (props) => {
     setShowPassword(!showPassword)
   }
   
-=======
-
->>>>>>> cbc17d6be4bd31fb15d0267e28b9ae80ca83cd97
   const handleUsername = (e) => {
     setUsername(e.target.value);
   };
@@ -113,22 +105,48 @@ const Signup = (props) => {
         <TextField required label="email" onChange={handleEmail}/>
 
         <TextField
-          type={showPassword ? 'text' : 'password'}  
-          required 
           label="password"
+          type={showPassword ? "text" : "password"}  
+          required 
           onChange={handlePassword}
           onClick ={handleShowPassword} 
           onMouseDown={handleMouseDownPassword}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                onClick={handleShowPassword}
+                onMouseDown={handleMouseDownPassword}
+                >
+                  {setPasswordIcon}
+                </IconButton>
+              </InputAdornment>
+            )
+          }}
         >
-          <IconButton
-          onClick={handleShowPassword}
-          onMouseDown={handleMouseDownPassword}
-          >
-          {setPasswordIcon}
-          </IconButton>
         </TextField>
 
-        <TextField required label="verify password" onChange={handleConfirmPassword}/>
+        <TextField 
+          label="password"
+          type={showPassword ? "text" : "password"}  
+          required 
+          onChange={handlePassword}
+          onClick ={handleShowPassword} 
+          onMouseDown={handleMouseDownPassword}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                onClick={handleShowPassword}
+                onMouseDown={handleMouseDownPassword}
+                >
+                  {setPasswordIcon}
+                </IconButton>
+              </InputAdornment>
+            )
+          }}
+        >
+        </TextField>
         <Button type="submit" className="btn btn-primary float-right" variant="contained" size="small">Submit</Button>
       </FormLabel>
     </Paper>
