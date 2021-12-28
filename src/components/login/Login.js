@@ -17,11 +17,7 @@ import { fontFamily } from '@mui/system';
 
 const useStyles = makeStyles({
   btn: {
-<<<<<<< HEAD
     color: 'red'
-=======
-    color: 'red',
->>>>>>> cbc17d6be4bd31fb15d0267e28b9ae80ca83cd97
   },
 });
 
