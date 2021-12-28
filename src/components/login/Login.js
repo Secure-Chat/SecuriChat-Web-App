@@ -1,23 +1,18 @@
 // Imports
-import React from 'react';
+import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import base64 from 'base-64';
 import { getUserData } from '../middleware/dataStore';
-import { Button, FormLabel, Paper, TextField, Typography } from '@mui/material';
-import { makeStyles } from '@mui/styles';
 
 // Styles
 import './Login.scss';
-import { fontFamily } from '@mui/system';
+import { Button, FormLabel, IconButton, InputAdornment, Paper, TextField, Typography } from '@mui/material';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 // Components
-
-const useStyles = makeStyles({
-  btn: {
-    color: 'red',
-  },
-});
 
 const mapStateToProps = (state) => {
   return {
@@ -37,10 +32,17 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(function Login(props) {
-  const classes = useStyles();
-
-  // const socket = useContext(SocketContext);
+  const [showPassword, setShowPassword] = useState(false);
+  const setPasswordIcon = showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />;
   const REACT_APP_DATABASE_URL = process.env.REACT_APP_DATABASE_URL;
+
+  const handleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleMouseDownPassword = (e) => {
+    setShowPassword(!showPassword);
+  };
 
   const loginHandler = (e) => {
     e.preventDefault();
@@ -88,16 +90,41 @@ export default connect(
   };
 
   return (
-    <Paper>
+    <Paper id="login-div">
       <Typography>
-        <form id="login-form" onSubmit={loginHandler}>
-          <FormLabel id="label">Sign-In</FormLabel>
-          <TextField className="login-field" label="Username" name="username" style={{ margin: '10px' }} />
-          <TextField className="login-field" label="Password" type="password" name="password" style={{ margin: '10px' }} />
-          <Button className={classes.btn} variant="outlined" type="submit">
-            Submit
-          </Button>
-        </form>
+        <div>
+          <form onSubmit={loginHandler}>
+            <FormLabel id="label">Sign-In</FormLabel>
+            <TextField required className="login-field" label="Username" name="username" />
+            <TextField
+              required
+              className="login-field"
+              label="Password"
+              name="password"
+              type={showPassword ? 'text' : 'password'}
+              onClick={handleShowPassword}
+              onMouseDown={handleMouseDownPassword}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton onClick={handleShowPassword} onMouseDown={handleMouseDownPassword}>
+                      {setPasswordIcon}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
+            <Button id="submit" variant="contained" type="submit">
+              Submit
+            </Button>
+          </form>
+          <fieldset className="create-account-field">
+            <legend>New to SecuriChat?</legend>
+            <Button variant="outlined" component={NavLink} to="/signup">
+              Create an Account
+            </Button>
+          </fieldset>
+        </div>
       </Typography>
     </Paper>
   );
