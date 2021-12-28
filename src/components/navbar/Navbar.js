@@ -17,8 +17,7 @@ const useStyles = makeStyles({
   createAccount: {
     float: 'right',
     textDecoration: 'none',
-    // color: '#ff8c00',
-    color: '#fbab60',
+    color: 'black',
     position: 'relative',
     bottom: '120px'
   }
