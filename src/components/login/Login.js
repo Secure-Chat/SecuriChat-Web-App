@@ -1,5 +1,6 @@
 // Imports
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import base64 from 'base-64';
@@ -8,18 +9,8 @@ import { getUserData } from '../middleware/dataStore';
 // Styles
 import './Login.scss';
 import { Button, FormLabel, Paper, TextField, Typography } from '@mui/material';
-import { makeStyles } from '@mui/styles';
-import { NavLink } from 'react-router-dom';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { fontFamily } from '@mui/system';
 
 // Components
-
-const useStyles = makeStyles({
-  btn: {
-    color: 'red',
-  },
-});
 
 const mapStateToProps = (state) => {
   return {
@@ -39,8 +30,6 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(function Login(props) {
-  const classes = useStyles();
-
   // const socket = useContext(SocketContext);
   const REACT_APP_DATABASE_URL = process.env.REACT_APP_DATABASE_URL;
 
@@ -84,30 +73,23 @@ export default connect(
   };
 
   return (
-    <Paper>
+    <Paper id="login-div">
       <Typography>
-        <div id="login-div">
-          <form id="login-form" onSubmit={loginHandler}>
+        <div>
+          <form onSubmit={loginHandler}>
             <FormLabel id="label">Sign-In</FormLabel>
-            <TextField required className="login-field" label="Username" name="username" style={{ margin: '10px' }} />
-            <TextField
-              required
-              className="login-field"
-              label="Password"
-              type="password"
-              name="password"
-              style={{ margin: '10px' }}
-            />
-            <Button className={classes.btn} variant="outlined" type="submit">
+            <TextField required className="login-field" label="Username" name="username" />
+            <TextField required className="login-field" label="Password" type="password" name="password" />
+            <Button id="submit" variant="contained" type="submit">
               Submit
             </Button>
           </form>
-          <div className="create-account-link">
-            <NavLink to="/signup">
-              Create Account
-              <AccountCircleIcon />
-            </NavLink>
-          </div>
+          <fieldset className="create-account-field">
+            <legend>New to SecuriChat?</legend>
+            <Button variant="outlined" component={NavLink} to="/signup">
+              Create an Account
+            </Button>
+          </fieldset>
         </div>
       </Typography>
     </Paper>
