@@ -20,11 +20,11 @@ export default connect(mapStateToProps)(function Message(props) {
           <div className="messageTime">{props.message.messageTime}</div>
         </div>
       ) : (
-      <div className="messageLeft">
-        <div classname="bubblePoint"></div>
-        <div className="messageContent">{props.message.message}</div>
-        <div className="messageTime">{props.message.messageTime}</div>
-      </div>
+        <div className="messageLeft">
+          <div classname="bubblePoint"></div>
+          <div className="messageContent">{props.message.message}</div>
+          <div className="messageTime">{props.message.messageTime}</div>
+        </div>
       )}
     </>
   );

@@ -7,17 +7,33 @@ import SettingsApplicationsIcon from '@mui/icons-material/SettingsApplications';
 import ContactsIcon from '@mui/icons-material/Contacts';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { IconButton, Paper, Typography } from '@mui/material';
-
 import logo from '../../img/logo.png';
+import { makeStyles } from '@mui/styles';
+
+const useStyles = makeStyles({
+  logo:{
+    height: '100px',
+  },
+  createAccount: {
+    float: 'right',
+    textDecoration: 'none',
+    // color: '#ff8c00',
+    color: '#fbab60',
+    position: 'relative',
+    bottom: '120px'
+  }
+})
 
 const Navbar = (props) => {
+  const classes = useStyles();
+
   return (
     <Paper>
       <Typography>
         <nav className="navbar nav-bg">
           <div className="container">
             <Link to="/">
-              <img src={logo} alt="SecuriChat" />
+              <img src={logo} alt="SecuriChat" className={classes.logo} />
             </Link>
             {props.isLoggedIn ? (
               <ul>
@@ -40,7 +56,7 @@ const Navbar = (props) => {
             ) : (
               <ul>
                 <li className="nav-item">
-                  <NavLink className="nav-link" to="/signup">
+                  <NavLink className={classes.createAccount}to="/signup">
                     Create Account
                     <AccountCircleIcon />
                   </NavLink>
