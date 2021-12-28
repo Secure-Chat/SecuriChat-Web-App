@@ -22,7 +22,6 @@ function Contacts(props) {
 
   const toggleModal = (e, contact) => {
     setShowContact(contact);
-    console.log(props.contacts.contactList[contact.contact])
     setShow(!show);
   };
 
@@ -62,6 +61,7 @@ function Contacts(props) {
 
     socket.on('message', (payload) => {
       props.message(payload);
+      if (payload.username !== props.user.userInfo.username) socket.emit('received', payload);
     });
 
     socket.on('disconnect', () => console.log("disconnected"))
@@ -92,7 +92,7 @@ function Contacts(props) {
         }
       }
       const lastMessage = `${ currentContact.messages.length ? 
-        currentContact.messages[currentContact.messages.length - 1].substring(0, 20) :
+        currentContact.messages[currentContact.messages.length - 1].message.substring(0, 20) :
         '' }`
       theList.push({
         contact,
@@ -144,7 +144,7 @@ function Contacts(props) {
       </div>
       {show ? (
         <Chat
-          messages={props.contacts.contactList[showContact.contact].messages}
+          contact={showContact.contact}
           room={showContact.room}
           toggleModal={toggleModal}
           encryptionStatus={encryptionStatus}
