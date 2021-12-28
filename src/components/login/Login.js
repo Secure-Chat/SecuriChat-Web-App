@@ -1,5 +1,5 @@
 // Imports
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import axios from 'axios';
@@ -8,8 +8,9 @@ import { getUserData } from '../middleware/dataStore';
 
 // Styles
 import './Login.scss';
-import { Button, FormLabel, Paper, TextField, Typography } from '@mui/material';
-import { AccountCircleIcon, VisibilityIcon, VisibilityOffIcon } from '@mui/icons-material/';
+import { Button, FormLabel, IconButton, InputAdornment, Paper, TextField, Typography } from '@mui/material';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 // Components
 
@@ -22,9 +23,9 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  signin: (response) => dispatch({ type: "SIGN_IN", payload: response }),
-  setContacts: (payload) => dispatch({ type: "SET_CONTACTS", payload }),
-  setMessageQueue: (payload) => dispatch({ type: "SET_MESSAGEQUEUE", payload }),
+  signin: (response) => dispatch({ type: 'SIGN_IN', payload: response }),
+  setContacts: (payload) => dispatch({ type: 'SET_CONTACTS', payload }),
+  setMessageQueue: (payload) => dispatch({ type: 'SET_MESSAGEQUEUE', payload }),
 });
 
 export default connect(
@@ -32,8 +33,7 @@ export default connect(
   mapDispatchToProps
 )(function Login(props) {
   const [showPassword, setShowPassword] = useState(false);
-  const setPasswordIcon = showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />
-  // const socket = useContext(SocketContext);
+  const setPasswordIcon = showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />;
   const REACT_APP_DATABASE_URL = process.env.REACT_APP_DATABASE_URL;
 
   const handleShowPassword = () => {
@@ -89,34 +89,26 @@ export default connect(
         <div>
           <form onSubmit={loginHandler}>
             <FormLabel id="label">Sign-In</FormLabel>
-            <TextField
-              required
-              className="login-field"
-              label="Username"
-              name="username"
-            />
+            <TextField required className="login-field" label="Username" name="username" />
             <TextField
               required
               className="login-field"
               label="Password"
               name="password"
-              type={showPassword ? "text" : "password"}
+              type={showPassword ? 'text' : 'password'}
               onClick={handleShowPassword}
               onMouseDown={handleMouseDownPassword}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
-                    <IconButton
-                      onClick={handleShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                    >
+                    <IconButton onClick={handleShowPassword} onMouseDown={handleMouseDownPassword}>
                       {setPasswordIcon}
                     </IconButton>
                   </InputAdornment>
                 ),
               }}
             />
-            <Button variant="outlined" type="submit">
+            <Button id="submit" variant="contained" type="submit">
               Submit
             </Button>
           </form>
