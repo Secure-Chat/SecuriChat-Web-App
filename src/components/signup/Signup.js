@@ -45,9 +45,22 @@ const Signup = (props) => {
 
     // Check to make sure passwords match
     if (password === confirmPassword && password.length >= 8) {
-      const url = `${REACT_APP_DATABASE_URL}/signup`;
-      const request = {
-        url,
+      // const url = `${REACT_APP_DATABASE_URL}/signup`;
+      // const request = {
+      //   url,
+      //   headers: {
+      //     'Access-Control-Allow-Origin': null,
+      //   },
+      //   data: {
+      //     username,
+      //     password,
+      //     rooms: []
+      //   },
+      // };
+
+      axios({
+        method: 'post',
+        url: `${REACT_APP_DATABASE_URL}/signup`,
         headers: {
           'Access-Control-Allow-Origin': null,
         },
@@ -55,13 +68,7 @@ const Signup = (props) => {
           username,
           password,
           rooms: []
-        },
-      };
-
-      axios.post(url,{
-        username,
-        password,
-        rooms: []
+        }
       })
         .then((response) => {
           console.log(response.data, '<-- RESPONSE DOT DATA --<<');
