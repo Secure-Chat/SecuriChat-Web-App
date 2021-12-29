@@ -82,6 +82,7 @@ function Contacts(props) {
     });
 
     socket.on('message', (payload) => {
+      console.log('receiving ', payload)
       props.message(payload);
       if (payload.username !== props.user.userInfo.username) socket.emit('received', payload);
     });
