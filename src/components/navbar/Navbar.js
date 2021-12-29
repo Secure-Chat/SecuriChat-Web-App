@@ -36,7 +36,7 @@ const NavBar = (props) => {
   return (
     <AppBar className="navbar nav-bg" position="static" color="primary">
       <Container maxWidth="xl">
-        <Toolbar disableGutters>
+        <Toolbar disableGutters id="header-toolbarw">
           <Typography variant="h6" noWrap component="div" sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}>
             <Link to="/">
               <img src={logo} alt="SecuriChat" className="logo" />
@@ -49,7 +49,7 @@ const NavBar = (props) => {
           </Typography>
           {props.isLoggedIn ? (
             <>
-              <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+              <Box id="menu-box" sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                 <IconButton
                   size="large"
                   aria-label="account of current user"
