@@ -1,5 +1,5 @@
 //imports
-import { Button, FormControl, Modal, TextField } from '@mui/material';
+import { Button, TextField } from '@mui/material';
 import React, { useEffect, useState, useContext } from 'react';
 import { saveUserData } from '../middleware/dataStore';
 import { connect } from 'react-redux';
@@ -95,7 +95,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Chat(props)
   return (
     <>
       <div>
-        <div onClick={(e) => props.toggleModal(e, props.contact)}>X</div>
         <div className="chatHistory">
           <div>
             <Message messageList={messageList} />
