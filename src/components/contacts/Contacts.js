@@ -2,17 +2,14 @@ import React, { useContext, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { SocketContext } from '../../context/socket';
 import { saveUserData } from '../middleware/dataStore';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
 import Chat from '../chat/Chat';
 import ContactSettings from '../settings/ContactSettings';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import LoadingButton from '@mui/lab/LoadingButton';
+import SaveIcon from '@mui/icons-material/Save';
+import { List, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material';
 
 const style = {
   position: 'absolute',
@@ -149,7 +146,7 @@ function Contacts(props) {
         <h1>{props.user.userInfo.username}</h1>
         <h2>Contacts</h2>
         <p>Friend Code: {props.user.userInfo.friendCode}</p>
-        <p>Loading...</p>
+        <Typography align="center"><LoadingButton loading loadingPosition="start" startIcon={<SaveIcon />}>Contacts are loading</LoadingButton></Typography>
       </>
     )
   }
