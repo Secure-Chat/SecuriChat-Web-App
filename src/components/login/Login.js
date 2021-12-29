@@ -73,7 +73,7 @@ export default connect(
           //   room: friend.room,
           //   messages: [],
           // };
-          
+
           if (!(friend.friendName in contactList)) {
             contactList[friend.friendName] = {
               room: friend.room,
@@ -120,7 +120,7 @@ export default connect(
           </form>
           <fieldset className="create-account-field">
             <legend>New to SecuriChat?</legend>
-            <Button variant="outlined" component={NavLink} to="/signup">
+            <Button id="btn" variant="outlined" component={NavLink} to="/signup">
               Create an Account
             </Button>
           </fieldset>
