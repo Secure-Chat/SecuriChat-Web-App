@@ -1,15 +1,13 @@
 #footer {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
   #footer-container {
-    display: contents;
+    margin-top: 4px;
     #copyright {
       font-size: x-small;
+      margin-left: 10px;
     }
     #about-link {
-      display: flex;
-      align-items: center;
+      float: right;
+      margin-right: 10px;
       text-decoration: none;
       color: black;
     }
