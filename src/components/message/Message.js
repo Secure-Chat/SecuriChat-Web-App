@@ -20,7 +20,12 @@ const useStyles = makeStyles({
     display: "inline-block"
   },
   chatWindow: {
-    maxWidth: "500px"
+    maxWidth: "500px",
+    maxHeight: "90%",
+    overflow: "scroll"
+  },
+  username: {
+    fontWeight: "bold"
   }
 });
 
@@ -37,6 +42,7 @@ export default connect(mapStateToProps)(function Message(props) {
     <div className={`${classes.bubbleContainer} ${(props.user.userInfo.username === obj.username) ?
       "right" : "left" }`} key={idx}>
       <div key={idx+1} className={classes.bubble}>
+        <div className={classes.username}>{obj.username}</div>
         <div className={classes.button}>{obj.message}</div>
       </div>
     </div>

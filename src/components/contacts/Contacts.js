@@ -9,6 +9,23 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Chat from '../chat/Chat';
 import ContactSettings from '../settings/ContactSettings';
+import Modal from '@mui/material/Modal';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+  maxHeight: "80%"
+};
 
 function Contacts(props) {
   const socket = useContext(SocketContext);
@@ -24,10 +41,14 @@ function Contacts(props) {
 
   const [encryptionStatus, setEncryptionStatus] = useState(true);
 
-  const toggleModal = (e, contact) => {
+  const handleOpen = (e, contact) => {
     setShowContact(contact);
-    setShow(!show);
+    setShow(true);
   };
+
+  const handleClose = () => {
+    setShow(false)
+  }
 
   useEffect(() => {
     if (!socket.connected) socket.connect();
@@ -138,46 +159,49 @@ function Contacts(props) {
       <h2>Contacts</h2>
       <p>Friend Code: {props.user.userInfo.friendCode}</p>
       <div >
-      <List
-        sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
-        aria-label="contacts"
-      >
-        {displayList.map((contact, idx) => {
-          return (
-            <ListItem key={idx} component="div" disablePadding>
-              <ListItemButton onClick={(e) => toggleModal(e, contact)}>
-                {contact.receivedCount ? 
-                <ListItemIcon><ListItemText primary={`(${contact.receivedCount})`} /></ListItemIcon> : 
-                <></>}
-                <ListItemText
-                  primary={contact.contact}
-                  secondary={contact.lastMessage.length ? contact.lastMessage : ''}
-                />
-                {contact.sentCount ?
-                <ListItemIcon><ListItemText primary={`Unsent: (${contact.sentCount})`} /></ListItemIcon> : 
-                <></>}
-                <ContactSettings 
-                  darkMode={props.darkMode}
-                  encryptionStatus={encryptionStatus}
-                  setEncryptionStatus={setEncryptionStatus}
-                />
-              </ListItemButton>
-            </ListItem>
-          );
-        })}
-      </List>
-
+        <List
+          sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
+          aria-label="contacts"
+        >
+          {displayList.map((contact, idx) => {
+            return (
+              <ListItem key={idx} component="div" disablePadding>
+                <ListItemButton onClick={(e) => handleOpen(e, contact)}>
+                  {contact.receivedCount ? 
+                  <ListItemIcon><ListItemText primary={`(${contact.receivedCount})`} /></ListItemIcon> : 
+                  <></>}
+                  <ListItemText
+                    primary={contact.contact}
+                    secondary={contact.lastMessage.length ? contact.lastMessage : ''}
+                  />
+                  {contact.sentCount ?
+                  <ListItemIcon><ListItemText primary={`Unsent: (${contact.sentCount})`} /></ListItemIcon> : 
+                  <></>}
+                  <ContactSettings 
+                    darkMode={props.darkMode}
+                    encryptionStatus={encryptionStatus}
+                    setEncryptionStatus={setEncryptionStatus}
+                  />
+                </ListItemButton>
+              </ListItem>
+            );
+          })}
+        </List>
+        <Modal
+          open={show}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <Chat
+              contact={showContact.contact}
+              room={showContact.room}
+              encryptionStatus={encryptionStatus}
+            />
+          </Box>
+        </Modal>
       </div>
-      {show ? (
-        <Chat
-          contact={showContact.contact}
-          room={showContact.room}
-          toggleModal={toggleModal}
-          encryptionStatus={encryptionStatus}
-        />
-      ) : (
-        <></>
-      )}
     </>
   );
 }
