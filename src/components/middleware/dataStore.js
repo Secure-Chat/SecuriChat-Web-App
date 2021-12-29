@@ -1,6 +1,3 @@
-// const PLATFORM = process.platform;
-// console.log("Platform: ", PLATFORM);
-
 // on authentication
 export const getUserData = (user) => {
   const { username, token } = user;

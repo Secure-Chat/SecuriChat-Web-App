@@ -31,13 +31,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Chat(props)
 
   const handleSendMessage = (e) => {
     e.preventDefault();
-    // console.log('sending')
-    // console.log({
-    //   message: messageToSend,
-    //   username: props.user.userInfo.username,
-    //   room: props.room,
-    // })
-    // console.log(socket)
     socket.emit('send', {
       message: messageToSend,
       username: props.user.userInfo.username,

@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Navigate } from 'react-router-dom';
-import jwt_decode from 'jwt-decode';
 
 //styling
 import { Paper, Button, FormLabel, TextField, IconButton, InputAdornment } from '@mui/material';
@@ -45,18 +44,6 @@ const Signup = (props) => {
 
     // Check to make sure passwords match
     if (password === confirmPassword && password.length >= 8) {
-      // const url = `${REACT_APP_DATABASE_URL}/signup`;
-      // const request = {
-      //   url,
-      //   headers: {
-      //     'Access-Control-Allow-Origin': null,
-      //   },
-      //   data: {
-      //     username,
-      //     password,
-      //     rooms: []
-      //   },
-      // };
 
       axios({
         method: 'post',
