@@ -32,7 +32,7 @@ body {
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: 35px; /* Set the fixed height of the footer here */
+  min-height: 35px; /* Set the fixed height of the footer here */
   line-height: 35px; /* Vertically center the text there */
 }
 

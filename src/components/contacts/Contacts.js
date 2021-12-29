@@ -68,7 +68,7 @@ function Contacts(props) {
       if (payload.username !== props.user.userInfo.username) socket.emit('received', payload);
     });
 
-    socket.on('disconnect', () => console.log("disconnected"))
+    socket.on('disconnect', () => console.log('disconnected'));
 
     return () => {
       socket.disconnect();
@@ -95,9 +95,11 @@ function Contacts(props) {
           }
         }
       }
-      const lastMessage = `${ currentContact.messages.length ? 
-        currentContact.messages[currentContact.messages.length - 1].message.substring(0, 20) :
-        '' }`
+      const lastMessage = `${
+        currentContact.messages.length
+          ? currentContact.messages[currentContact.messages.length - 1].message.substring(0, 20)
+          : ''
+      }`;
       theList.push({
         contact,
         room: currentContact.room,
@@ -120,8 +122,8 @@ function Contacts(props) {
     setDisplayList(theList);
   }, [props.contacts, props.messageQueue, props.user]);
 
-  if(!displayList.length) {
-    return (<p>Loading...</p>)
+  if (!displayList.length) {
+    return <p>Loading...</p>;
   }
   return (
     <>
