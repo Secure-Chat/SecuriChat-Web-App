@@ -32,28 +32,25 @@ body {
   position: absolute;
   bottom: 0;
   width: 100%;
-  min-height: 35px; /* Set the fixed height of the footer here */
+  min-height: 35px;
   line-height: 35px; /* Vertically center the text there */
 }
 
 .nav-link {
   display: flex;
   margin-left: 30px;
-  // margin-top: 300px;
   color: white !important;
   text-decoration: none;
 }
 
 .nav-link-dropdown {
   display: flex;
-  // margin-left: 30px;
-  // margin-top: 300px;
   color: darkgray;
   text-decoration: none;
 }
 
 .nav-bg {
-  background-color: rgba(155, 169, 227, 0.5) !important;
+  background-color: rgba(230, 211, 208, 0.5) !important;
 }
 
 #app-display {
@@ -68,7 +65,7 @@ body {
 }
 
 .nav-bg--color {
-  background-color: rgba(104, 29, 29, 0.5) !important;
+  background-color: rgba(230, 211, 208, 0.5) !important;
 }
 
 .nav-link {
@@ -90,12 +87,7 @@ li {
 
   p {
     font-weight: bold;
-    /* color: hsl(209, 61%, 16%); */
   }
-
-  /* a {
-  color: hsl(209, 34%, 30%);
-  } */
 }
 
 .teamCard {

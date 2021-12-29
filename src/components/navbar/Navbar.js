@@ -14,6 +14,7 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import logo from '../../img/logo.png';
+import logodark from '../../img/logo-darkmode.png';
 import './Navbar.scss';
 
 const pages = ['Contacts', 'Add Friend'];
@@ -24,6 +25,7 @@ const links = {
 
 const NavBar = (props) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const setLogo = props.darkMode ? logodark : logo;
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -39,12 +41,12 @@ const NavBar = (props) => {
         <Toolbar disableGutters id="header-toolbarw">
           <Typography variant="h6" noWrap component="div" sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}>
             <Link to="/">
-              <img src={logo} alt="SecuriChat" className="logo" />
+              <img src={setLogo} alt="SecuriChat" className="logo" />
             </Link>
           </Typography>
           <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <Link to="/">
-              <img src={logo} alt="SecuriChat" className="logo" />
+              <img src={setLogo} alt="SecuriChat" className="logo" />
             </Link>
           </Typography>
           {props.isLoggedIn ? (
