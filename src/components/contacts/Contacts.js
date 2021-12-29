@@ -64,7 +64,7 @@ function Contacts(props) {
       if (payload.username !== props.user.userInfo.username) socket.emit('received', payload);
     });
 
-    socket.on('disconnect', () => console.log("disconnected"))
+    socket.on('disconnect', () => console.log('disconnected'));
 
     return () => {
       socket.disconnect();
@@ -91,9 +91,11 @@ function Contacts(props) {
           }
         }
       }
-      const lastMessage = `${ currentContact.messages.length ? 
-        currentContact.messages[currentContact.messages.length - 1].message.substring(0, 20) :
-        '' }`
+      const lastMessage = `${
+        currentContact.messages.length
+          ? currentContact.messages[currentContact.messages.length - 1].message.substring(0, 20)
+          : ''
+      }`;
       theList.push({
         contact,
         room: currentContact.room,
@@ -116,14 +118,13 @@ function Contacts(props) {
     setDisplayList(theList);
   }, [props.contacts, props.messageQueue, props.user]);
 
-  if(!displayList.length) {
-    return (<p>Loading...</p>)
+  if (!displayList.length) {
+    return <p>Loading...</p>;
   }
   return (
     <>
       <h1>Contacts</h1>
       <div className="contact-list">
-
         {displayList.map((contact, idx) => {
           return (
             <div onClick={(e) => toggleModal(e, contact)} key={idx}>
@@ -132,10 +133,10 @@ function Contacts(props) {
                 <div className="contact-name">{contact.contact}</div>
                 {contact.sentCount ? <div className="messageCount outgoing">{contact.sentCount}</div> : <></>}
               </div>
-              <ContactSettings 
-              darkMode={props.darkMode}
-              encryptionStatus={encryptionStatus}
-              setEncryptionStatus={setEncryptionStatus}
+              <ContactSettings
+                darkMode={props.darkMode}
+                encryptionStatus={encryptionStatus}
+                setEncryptionStatus={setEncryptionStatus}
               />
               <div>{contact.lastMessage}</div>
             </div>

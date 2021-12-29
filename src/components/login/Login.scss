@@ -1,3 +1,5 @@
+$submit-margins: 20px 5% 10px 5%;
+
 #login-div {
   max-width: 450px;
   margin: auto;
@@ -17,7 +19,7 @@ form {
   }
 
   #submit {
-    margin: 20px 5% 10px 5%;
+    margin: $submit-margins;
   }
 }
 .create-account-field {
@@ -26,11 +28,15 @@ form {
   border-left: 0px;
   border-style: solid;
   border-color: lightgrey;
-  margin: 20px 5% 10px 5%;
+  margin: $submit-margins;
   display: flex;
   justify-content: center;
   legend {
     text-align: center;
     color: grey;
+  }
+  #btn {
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
 }
