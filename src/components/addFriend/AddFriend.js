@@ -36,6 +36,7 @@ export default connect(
       method: 'put',
       url: `${REACT_APP_DATABASE_URL}/addFriend`,
       headers: {
+        'Access-Control-Allow-Origin': null,
         Authorization: `token ${token}`
       },
       data: {
