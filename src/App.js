@@ -16,6 +16,7 @@ import About from './components/about/About';
 import Footer from './components/footer/Footer';
 import Login from './components/login/Login';
 import Contacts from './components/contacts/Contacts';
+import AddFriend from './components/addFriend/AddFriend';
 
 function App(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);

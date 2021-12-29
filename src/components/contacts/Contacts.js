@@ -121,11 +121,20 @@ function Contacts(props) {
   }, [props.contacts, props.messageQueue, props.user]);
 
   if (!displayList.length) {
-    return  <Typography align="center"><LoadingButton loading loadingPosition="start" startIcon={<SaveIcon />}>Contacts are loading</LoadingButton></Typography>
+    return (
+      <>
+        <h1>{props.user.userInfo.username}</h1>
+        <h2>Contacts</h2>
+        <p>Friend Code: {props.user.userInfo.friendCode}</p>
+        <Typography align="center"><LoadingButton loading loadingPosition="start" startIcon={<SaveIcon />}>Contacts are loading</LoadingButton></Typography>
+      </>
+    )
   }
   return (
     <>
-      <h1>Contacts</h1>
+      <h1>{props.user.userInfo.username}</h1>
+      <h2>Contacts</h2>
+      <p>Friend Code: {props.user.userInfo.friendCode}</p>
       <div >
       <List
         sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}

@@ -59,8 +59,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Chat(props)
   }, [socket])
 
   useEffect(() => {
-    let theQueue = [...props.messageQueue.messageQueue[props.room]];
-    let chatHistory = [...props.contacts.contactList[props.contact].messages];
+    let theQueue = [];
+    let chatHistory = [];
+    if (props.messageQueue.messageQueue[props.room]) theQueue = [...props.messageQueue.messageQueue[props.room]];
+    if (props.contacts.contactList[props.contact].messages) chatHistory = [...props.contacts.contactList[props.contact].messages];
 
     for ( const message of theQueue ) {
       if ( !(message.username === props.user.userInfo.username) ) {
