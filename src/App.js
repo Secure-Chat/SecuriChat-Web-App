@@ -49,7 +49,7 @@ function App(props) {
                 {isLoggedIn ? (
                   <>
                     <Route path="/" element={<Contacts />} />
-                    <Route path="addfriend/*" element={<AddFriend />} />
+                    {/* <Route path="addfriend/*" element={<AddFriend />} /> */}
                   </>
                 ) : (
                   <>
