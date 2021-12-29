@@ -2,13 +2,11 @@ import React, { useContext, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { SocketContext } from '../../context/socket';
 import { saveUserData } from '../middleware/dataStore';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
 import Chat from '../chat/Chat';
 import ContactSettings from '../settings/ContactSettings';
+import LoadingButton from '@mui/lab/LoadingButton';
+import SaveIcon from '@mui/icons-material/Save';
+import { List, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material';
 
 function Contacts(props) {
   const socket = useContext(SocketContext);
@@ -123,7 +121,7 @@ function Contacts(props) {
   }, [props.contacts, props.messageQueue, props.user]);
 
   if (!displayList.length) {
-    return <p>Loading...</p>;
+    return  <Typography align="center"><LoadingButton loading loadingPosition="start" startIcon={<SaveIcon />}>Contacts are loading</LoadingButton></Typography>
   }
   return (
     <>
