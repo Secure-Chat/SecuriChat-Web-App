@@ -18,16 +18,3 @@ export default function userReducer(state = initialState, action) {
       return state;
   }
 }
-
-// export const signin = (user) => {
-//   return {
-//     type: 'SIGN_IN',
-//     payload: user,
-//   };
-// };
-
-// export const signout = () => {
-//   return {
-//     type: 'SIGN_OUT',
-//   };
-// };
