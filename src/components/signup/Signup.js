@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Navigate } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
-import setAuthToken from '../../utils/setAuthToken';
 
 //styling
 import { Paper, Button, FormLabel, TextField, IconButton, InputAdornment } from '@mui/material';
@@ -11,11 +10,10 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import './Signup.scss';
 
-const REACT_APP_SERVER_URL = process.env.REACT_APP_SERVER_URL;
+const REACT_APP_DATABASE_URL = process.env.REACT_APP_DATABASE_URL;
 
 const Signup = (props) => {
   const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [redirect, setRedirect] = useState(false);
@@ -34,10 +32,6 @@ const Signup = (props) => {
     setUsername(e.target.value);
   };
 
-  const handleEmail = (e) => {
-    setEmail(e.target.value);
-  };
-
   const handlePassword = (e) => {
     setPassword(e.target.value);
   };
@@ -51,7 +45,7 @@ const Signup = (props) => {
 
     // Check to make sure passwords match
     if (password === confirmPassword && password.length >= 8) {
-      const url = `${REACT_APP_SERVER_URL}/signup`;
+      const url = `${REACT_APP_DATABASE_URL}/signup`;
       const request = {
         url,
         headers: {
@@ -59,19 +53,19 @@ const Signup = (props) => {
         },
         data: {
           username,
-          email,
           password,
+          rooms: []
         },
       };
 
-      axios(request)
+      axios.post(url,{
+        username,
+        password,
+        rooms: []
+      })
         .then((response) => {
           console.log(response.data, '<-- RESPONSE DOT DATA --<<');
-          const { token } = response.data;
-          localStorage.setItem('jwtToken', token);
-          setAuthToken(token);
-          const decoded = jwt_decode(token); // Decode token to get the user data
-          props.nowCurrentUser(decoded); // Set current user
+          alert('Account Created!')
           setRedirect(true);
         })
         .catch((error) => {
@@ -91,14 +85,13 @@ const Signup = (props) => {
     }
   };
 
-  if (redirect) return <Navigate to="/contacts" />;
+  if (redirect) return <Navigate to="/" />;
 
   return (
     <Paper id="signup-div">
       <form onSubmit={handleSubmit}>
         <FormLabel id="signup-label">Sign-Up</FormLabel>
         <TextField required className="input-field" label="Username" onChange={handleUsername} />
-        <TextField required label="Email" className="input-field" onChange={handleEmail} />
 
         <TextField
           type={showPassword ? 'text' : 'password'}
