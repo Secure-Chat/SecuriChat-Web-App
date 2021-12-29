@@ -1,8 +1,28 @@
 //imports
 import React from 'react';
 import { connect } from 'react-redux';
+import { makeStyles } from '@mui/styles';
+import { Paper } from '@mui/material';
 
-//components
+const useStyles = makeStyles({
+  container: {
+    bottom: 0,
+  },
+  bubbleContainer: {
+    width: "100%",
+    display: "flex"
+  },
+  bubble: {
+    border: "0.5px solid black",
+    borderRadius: "10px",
+    margin: "5px",
+    padding: "10px",
+    display: "inline-block"
+  },
+  chatWindow: {
+    maxWidth: "500px"
+  }
+});
 
 const mapStateToProps = (state) => {
   return {
@@ -11,21 +31,19 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps)(function Message(props) {
+  const classes = useStyles();
+
+  const chatBubbles = props.messageList.map((obj, idx) => (
+    <div className={`${classes.bubbleContainer} ${(props.user.userInfo.username === obj.username) ?
+      "right" : "left" }`} key={idx}>
+      <div key={idx+1} className={classes.bubble}>
+        <div className={classes.button}>{obj.message}</div>
+      </div>
+    </div>
+  ));
   return (
-    <>
-      {props.message.username === props.user.userInfo.username ? (
-        <div className="messageRight">
-          <div classname="bubblePoint"></div>
-          <div className="messageContent">{props.message.message}</div>
-          <div className="messageTime">{props.message.messageTime}</div>
-        </div>
-      ) : (
-        <div className="messageLeft">
-          <div classname="bubblePoint"></div>
-          <div className="messageContent">{props.message.message}</div>
-          <div className="messageTime">{props.message.messageTime}</div>
-        </div>
-      )}
-    </>
+    <Paper variant="outlined" className={classes.chatWindow}>
+      <div className={classes.container}>{chatBubbles}</div>
+    </Paper>
   );
 });

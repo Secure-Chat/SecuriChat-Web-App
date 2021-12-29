@@ -96,9 +96,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Chat(props)
         <div onClick={(e) => props.toggleModal(e, props.contact)}>X</div>
         <div className="chatHistory">
           <div>
-            {messageList.map((message) => (
-              <Message message={message} />
-            ))}
+            <Message messageList={messageList} />
           </div>
         </div>
         <form onSubmit={handleSendMessage}>

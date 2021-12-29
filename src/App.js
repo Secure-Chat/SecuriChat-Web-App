@@ -5,6 +5,7 @@ import { socket, SocketContext } from './context/socket';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness5Icon from '@mui/icons-material/Brightness5';
 import { ThemeProvider, createTheme } from '@mui/material';
+import CssBaseline from '@mui/material/CssBaseline';
 
 import './App.scss';
 
@@ -22,8 +23,7 @@ function App(props) {
   const chooseIconMode = darkMode ? <Brightness4Icon /> : <Brightness5Icon />;
 
   const toggleLoggedIn = () => {
-    if (isLoggedIn) setIsLoggedIn(false);
-    else setIsLoggedIn(true);
+    setIsLoggedIn(!isLoggedIn)
   };
 
   const changeTheme = createTheme({
@@ -35,6 +35,7 @@ function App(props) {
   return (
     <SocketContext.Provider value={socket}>
       <ThemeProvider theme={changeTheme}>
+        <CssBaseline />
         <div className="App">
           <Router>
             <Navbar
