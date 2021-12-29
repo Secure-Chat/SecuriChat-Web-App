@@ -6,7 +6,9 @@ import { Paper, Typography } from '@mui/material';
 import InfoIcon from '@mui/icons-material/Info';
 import './Footer.scss';
 
-export default function Footer() {
+export default function Footer(props) {
+  const icon = props.darkMode ? 'white' : 'black';
+
   return (
     <Paper id="footer" className="footer nav-bg--color">
       <Typography id="footer-container" className="container text-center">
@@ -15,7 +17,7 @@ export default function Footer() {
           <a href="https://github.com/Secure-Chat/securichat-web-app/blob/staging/LICENSE">MIT License</a>.
         </span>
         <NavLink id="about-link" to="/about">
-          <InfoIcon />
+          <InfoIcon style={{ color: `${icon}` }} />
         </NavLink>
       </Typography>
     </Paper>

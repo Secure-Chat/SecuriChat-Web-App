@@ -18,13 +18,13 @@ import Login from './components/login/Login';
 import Contacts from './components/contacts/Contacts';
 import AddFriend from './components/addFriend/AddFriend';
 
-function App(props) {
+function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
-  const chooseIconMode = darkMode ? <Brightness4Icon /> : <Brightness5Icon />;
+  const chooseIconMode = darkMode ? <Brightness5Icon /> : <Brightness4Icon />;
 
   const toggleLoggedIn = () => {
-    setIsLoggedIn(!isLoggedIn)
+    setIsLoggedIn(!isLoggedIn);
   };
 
   const changeTheme = createTheme({
@@ -61,7 +61,7 @@ function App(props) {
                 <Route path="about/*" element={<About />} />
               </Routes>
             </div>
-            <Footer />
+            <Footer darkMode={darkMode} />
           </Router>
         </div>
       </ThemeProvider>
