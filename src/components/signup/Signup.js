@@ -110,9 +110,9 @@ const Signup = (props) => {
               </InputAdornment>
             ),
           }}
-        ></TextField>
-
+        />
         <TextField
+          type={showPassword ? 'text' : 'password'}
           required
           label="Verify Password"
           className="input-field"
@@ -122,7 +122,7 @@ const Signup = (props) => {
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
-                <IconButton onClick={handleShowPassword}>{setPasswordIcon}</IconButton>
+                <IconButton onClick={handleShowPassword} onMouseDown={handleMouseDownPassword}>{setPasswordIcon}</IconButton>
               </InputAdornment>
             ),
           }}
