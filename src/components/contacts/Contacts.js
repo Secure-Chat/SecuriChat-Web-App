@@ -2,7 +2,11 @@ import React, { useContext, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { SocketContext } from '../../context/socket';
 import { saveUserData } from '../middleware/dataStore';
-import { Card, CardContent, CardHeader } from '@mui/material';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
 import Chat from '../chat/Chat';
 import ContactSettings from '../settings/ContactSettings';
 
@@ -124,24 +128,36 @@ function Contacts(props) {
   return (
     <>
       <h1>Contacts</h1>
-      <div className="contact-list">
+      <div >
+      <List
+        sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
+        aria-label="contacts"
+      >
         {displayList.map((contact, idx) => {
           return (
-            <div onClick={(e) => toggleModal(e, contact)} key={idx}>
-              <div>
-                {contact.receivedCount ? <div className="messageCount incoming">{contact.receivedCount}</div> : <></>}
-                <div className="contact-name">{contact.contact}</div>
-                {contact.sentCount ? <div className="messageCount outgoing">{contact.sentCount}</div> : <></>}
-              </div>
-              <ContactSettings
-                darkMode={props.darkMode}
-                encryptionStatus={encryptionStatus}
-                setEncryptionStatus={setEncryptionStatus}
-              />
-              <div>{contact.lastMessage}</div>
-            </div>
+            <ListItem key={idx} component="div" disablePadding>
+              <ListItemButton onClick={(e) => toggleModal(e, contact)}>
+                {contact.receivedCount ? 
+                <ListItemIcon><ListItemText primary={`(${contact.receivedCount})`} /></ListItemIcon> : 
+                <></>}
+                <ListItemText
+                  primary={contact.contact}
+                  secondary={contact.lastMessage.length ? contact.lastMessage : ''}
+                />
+                {contact.sentCount ?
+                <ListItemIcon><ListItemText primary={`Unsent: (${contact.sentCount})`} /></ListItemIcon> : 
+                <></>}
+                <ContactSettings 
+                  darkMode={props.darkMode}
+                  encryptionStatus={encryptionStatus}
+                  setEncryptionStatus={setEncryptionStatus}
+                />
+              </ListItemButton>
+            </ListItem>
           );
         })}
+      </List>
+
       </div>
       {show ? (
         <Chat
