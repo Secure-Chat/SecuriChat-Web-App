@@ -82,7 +82,6 @@ function Contacts(props) {
     });
 
     socket.on('message', (payload) => {
-      console.log('receiving ', payload)
       props.message(payload);
       if (payload.username !== props.user.userInfo.username) socket.emit('received', payload);
     });
@@ -175,11 +174,12 @@ function Contacts(props) {
                   {contact.sentCount ?
                   <ListItemIcon><ListItemText primary={`Unsent: (${contact.sentCount})`} /></ListItemIcon> : 
                   <></>}
-                  <ContactSettings 
+                  {/* Future Considerations */}
+                  {/* <ContactSettings 
                     darkMode={props.darkMode}
                     encryptionStatus={encryptionStatus}
                     setEncryptionStatus={setEncryptionStatus}
-                  />
+                  /> */}
                 </ListItemButton>
               </ListItem>
             );
