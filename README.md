@@ -43,6 +43,37 @@ cd Secure-Chat/securichat-web-app
 
 ![UML](./public/img/SecuriChat-UML.png)
 
+## Step-By-Step Instructions
+
+First step: click "CREATE AN ACCOUNT"
+
+![Step 1](./public/img/step-1.png)
+
+Second step: fill in required fields and click "SUBMIT"
+
+![Step 2](./public/img/step-2.png)
+
+Third step: sign in with new account
+
+![Step 3](./public/img/step-3.png)
+
+Fourth step
+(a) send your code to friends
+(b) and then click on "ADD FRIEND"
+
+![Step 4](./public/img/step-4.png)
+
+Fifth step: input your friends' codes and click "SUBMIT"
+
+![Step 5](./public/img/step-5.png)
+
+Sixth step: click on your friend
+
+![Step 6](./public/img/step-6.png)
+
+Seventh step: start chatting!
+![Step 7](./public/img/step-7.png)
+
 ## Authors
 
 - George Mead
