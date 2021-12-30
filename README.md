@@ -4,6 +4,45 @@
 
 In this project we wanted to create a messaging app that allows users to keep all of their chat data private. We are going about doing so by using an express server and a socket server. The express server handles user information like, username and password and the socket server handles user to user connection. All chat messages will be saved to the local machine!
 
+## Tools Used
+
+- Microsoft Visual Studio
+- MongoDB
+- Heroku
+- Netlify
+- Github
+
+- Node.js
+- JavaScript
+- Express
+- React
+- MUI
+
+## Getting Started
+
+Clone this repository to your local machine.
+
+``` javascript
+
+git clone 'https://github.com/Secure-Chat/securichat-web-app.git'
+
+```
+
+Install the third-party software needed for the app to run on your machine and go to the deployed site.
+
+``` javascript
+
+cd Secure-Chat/securichat-web-app
+`npm install`
+
+'https://securichat.netlify.app/'
+
+```
+
+## UML
+
+![UML](./public/img/SecuriChat-UML.png)
+
 ## Authors
 
 - George Mead
