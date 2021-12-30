@@ -4,6 +4,76 @@
 
 In this project we wanted to create a messaging app that allows users to keep all of their chat data private. We are going about doing so by using an express server and a socket server. The express server handles user information like, username and password and the socket server handles user to user connection. All chat messages will be saved to the local machine!
 
+## Tools Used
+
+- Microsoft Visual Studio
+- MongoDB
+- Heroku
+- Netlify
+- Github
+
+- Node.js
+- JavaScript
+- Express
+- React
+- MUI
+
+## Getting Started
+
+Clone this repository to your local machine.
+
+``` javascript
+
+git clone 'https://github.com/Secure-Chat/securichat-web-app.git'
+
+```
+
+Install the third-party software needed for the app to run on your machine and go to the deployed site.
+
+``` javascript
+
+cd Secure-Chat/securichat-web-app
+`npm install`
+
+'https://securichat.netlify.app/'
+
+```
+
+## UML
+
+![UML](./public/img/SecuriChat-UML.png)
+
+## Step-By-Step Instructions
+
+First step: click "CREATE AN ACCOUNT"
+
+![Step 1](./public/img/step-1.png)
+
+Second step: fill in required fields and click "SUBMIT"
+
+![Step 2](./public/img/step-2.png)
+
+Third step: sign in with new account
+
+![Step 3](./public/img/step-3.png)
+
+Fourth step
+(a) send your code to friends
+(b) and then click on "ADD FRIEND"
+
+![Step 4](./public/img/step-4.png)
+
+Fifth step: input your friends' codes and click "SUBMIT"
+
+![Step 5](./public/img/step-5.png)
+
+Sixth step: click on your friend
+
+![Step 6](./public/img/step-6.png)
+
+Seventh step: start chatting!
+![Step 7](./public/img/step-7.png)
+
 ## Authors
 
 - George Mead
